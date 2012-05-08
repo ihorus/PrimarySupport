@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/primarySupport/!svn/ver/706/modules/usersLDAP/engine
+END
+userSettings.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/primarySupport/!svn/ver/683/modules/usersLDAP/engine/userSettings.php
+END
+userClass.php
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/primarySupport/!svn/ver/706/modules/usersLDAP/engine/userClass.php
+END
+ssoSession.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/primarySupport/!svn/ver/683/modules/usersLDAP/engine/ssoSession.php
+END

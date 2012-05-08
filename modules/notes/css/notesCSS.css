@@ -1,0 +1,74 @@
+@import url(http://fonts.googleapis.com/css?family=Reenie+Beanie);
+
+
+#note {
+	font-family: 'Reenie Beanie', serif;
+	text-align: center;
+	color: #333;
+	
+	max-width: 350px;
+	padding: 50px;
+	margin: auto;
+	position: relative;
+	background-color: #fe6;
+	background: -webkit-linear-gradient(#fe6, #f5da41, #f6ef97);
+	background: -moz-linear-gradient(#fe6, #f5da41, #f6ef97);
+	-webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .2), inset 0 0 1px rgba(255, 255, 255, .8);
+	-moz-box-shadow: 0 0 5px rgba(0, 0, 0, .2), inset 0 0 1px rgba(255, 255, 255, .8);
+	box-shadow: 0 0 5px rgba(0, 0, 0, .2), inset 0 0 1px rgba(255, 255, 255, .8), inset 0 6px 6px rgba(0, 0, 0, .1);
+}
+
+#note:before {
+	content: '';
+	display: block;
+	width: 90%;
+	height: 20%;
+	position: absolute;
+	left: 10px;
+	bottom: 3px;
+	background-color: rgba(0, 0, 0, .9);
+	-o-transform: rotate(-3deg);
+	-webkit-transform: rotate(-3deg);
+	-moz-transform: rotate(-3deg);
+	-webkit-box-shadow: 0 0 10px #000;
+	-moz-box-shadow: 0 0 10px #000;
+	box-shadow: 0 0 10px #000;
+	opacity: 0.8;
+	z-index: -1;
+}
+
+#note:after {
+	content: '';
+	display: block;
+	width: 90%;
+	height: 20%;
+	position: absolute;
+	right: 10px;
+	bottom: 3px;
+	background-color: rgba(0, 0, 0, .9);
+	-o-transform: rotate(3deg);
+	-webkit-transform: rotate(3deg);
+	-moz-transform: rotate(3deg);
+	box-shadow: 0 0 10px #000;
+	-webkit-box-shadow: 0 0 10px #000;
+	-moz-box-shadow: 0 0 10px #000;
+	opacity: 0.8;
+	z-index: -1;
+}
+
+#note h1 {
+	font-size: 48px;
+	line-height: 48px;
+	letter-spacing: -5px;
+}
+
+#note p {
+	font-family: 'Reenie Beanie', serif;
+	font-size: 24px;
+	line-height: 36px;
+	margin-top: 20px;
+}
+
+#note a {
+	color: #333;
+}

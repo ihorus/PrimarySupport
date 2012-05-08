@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/primarySupport/!svn/ver/633/modules/user_profile/actions
+END
+updateSetting.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/primarySupport/!svn/ver/610/modules/user_profile/actions/updateSetting.php
+END
+updateProfile.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/primarySupport/!svn/ver/633/modules/user_profile/actions/updateProfile.php
+END
+resetPassword.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/primarySupport/!svn/ver/609/modules/user_profile/actions/resetPassword.php
+END

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/primarySupport/!svn/ver/713/modules/user_profile/views
+END
+footer_right.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/primarySupport/!svn/ver/706/modules/user_profile/views/footer_right.php
+END
+active_users.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/primarySupport/!svn/ver/713/modules/user_profile/views/active_users.php
+END
+user_statistics_sub.php
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/primarySupport/!svn/ver/707/modules/user_profile/views/user_statistics_sub.php
+END
+editUser.php
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/primarySupport/!svn/ver/678/modules/user_profile/views/editUser.php
+END
+user_statistics.php
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/primarySupport/!svn/ver/643/modules/user_profile/views/user_statistics.php
+END

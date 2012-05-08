@@ -1,0 +1,129 @@
+<!DOCTYPE HTML>
+ <!--
+ 
+ File: index.html
+ 
+ Abstract: This example webpage showcases a variety of CSS visual 
+ effects.  Buttons and other page elements are styled with CSS gradients
+ and shadows, menus are animated with CSS transitions, custom fonts are 
+ displayed with CSS web fonts, and elements are positioned, scaled, and 
+ rotated on the page using CSS transforms.  The entire interface is drawn
+ and animated without using any images or plug-ins.
+ 
+ Version: 1.0
+ 
+ Disclaimer: IMPORTANT:  This Apple software is supplied to you by 
+ Apple Inc. ("Apple") in consideration of your agreement to the
+ following terms, and your use, installation, modification or
+ redistribution of this Apple software constitutes acceptance of these
+ terms.  If you do not agree with these terms, please do not use,
+ install, modify or redistribute this Apple software.
+ 
+ In consideration of your agreement to abide by the following terms, and
+ subject to these terms, Apple grants you a personal, non-exclusive
+ license, under Apple's copyrights in this original Apple software (the
+ "Apple Software"), to use, reproduce, modify and redistribute the Apple
+ Software, with or without modifications, in source and/or binary forms;
+ provided that if you redistribute the Apple Software in its entirety and
+ without modifications, you must retain this notice and the following
+ text and disclaimers in all such redistributions of the Apple Software. 
+ Neither the name, trademarks, service marks or logos of Apple Inc. 
+ may be used to endorse or promote products derived from the Apple
+ Software without specific prior written permission from Apple.  Except
+ as expressly stated in this notice, no other rights or licenses, express
+ or implied, are granted by Apple herein, including but not limited to
+ any patent rights that may be infringed by your derivative works or by
+ other works in which the Apple Software may be incorporated.
+ 
+ The Apple Software is provided by Apple on an "AS IS" basis.  APPLE
+ MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION
+ THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS
+ FOR A PARTICULAR PURPOSE, REGARDING THE APPLE SOFTWARE OR ITS USE AND
+ OPERATION ALONE OR IN COMBINATION WITH YOUR PRODUCTS.
+ 
+ IN NO EVENT SHALL APPLE BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL
+ OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+ SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ INTERRUPTION) ARISING IN ANY WAY OUT OF THE USE, REPRODUCTION,
+ MODIFICATION AND/OR DISTRIBUTION OF THE APPLE SOFTWARE, HOWEVER CAUSED
+ AND WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE),
+ STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
+ POSSIBILITY OF SUCH DAMAGE.
+ 
+ Copyright (C) 2010 Apple Inc. All Rights Reserved.
+ 
+ -->
+
+<html>
+
+<head>
+    <meta name="viewport" content = "width=1024">
+    <title>CSS Site of Awesomeness</title>
+    <meta name="viewport" content="width=1024">
+    <script src="script.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="style-transitions.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="icon" href="">
+</head>
+
+<!-- The 'ontouchstart' event handler here causes Touch Events on the iPhone/iPad to
+     trigger :hover effects on our elements.  This works, but is not ideal.  Instead,
+     try to avoid requiring :hover functionality for basic interactions, as that concept
+     does not exist in the touch world. -->
+<body onload="load()" ontouchstart="void(0);">
+    <div id="navigation-bar">
+        <ul id="navigation-menu">
+            <li id="about">
+                About
+                <ul id="fade-submenu" class="submenu">
+                    <li>Bio</li>
+                    <li>Resume</li>
+                    <li>CV</li>
+                </ul>
+            </li><li id="design">
+                Design
+                <ul id="drop-submenu" class="submenu">
+                    <li>2 Dimensional</li>
+                    <li>3 Dimensional</li>
+                    <li>Client Showcase</li>
+                </ul>
+            </li><li id="photo">
+                Photo
+                <ul id="blinds-submenu" class="submenu">
+                    <li>Landscape</li>
+                    <li>Architecture</li>
+                    <li>Portraiture</li>
+                    <li>Abstract</li>
+                </ul>
+            </li><li id="contact">
+                Contact
+                <ul id="zoom-down-submenu" class="submenu">
+                    <li>E-mail</li>
+                    <li>Facebook</li>
+                    <li>Twitter</li>
+                    <li>LinkedIn</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div id="badge_container">
+            <div id="badge">
+                <h1 id="badge_text">HTML, CSS<br/>&amp;<br/>Javascript</h1>
+            </div>
+            <div id="badge_shadow"></div>
+        </div>  
+
+        <h1>CSS Site of Awesomeness</h1>
+        <p>This site was created to showcase the power of CSS. No images or plug-ins were harmed during the creation of this page. The badge you see on the left, the glossy buttons above, and the sticky note on the right were all built using pure CSS. Check out the CSS animations in the menus&mdash; no plug-ins and minimal JavaScript!</p>
+        <p>The advantages of using CSS properties for styling and animating your site are many, including smaller files (thus faster &amp; less bandwidth), iPad compatibility, more optimized execution, accessibility, and graceful degradation. </p>
+        <p>Remember to check out the photo gallery demo from "CSS Effects, Part 2" session, where there are lots of cool 3D transforms and animation to tickle your senses!</p>
+
+        <div id="sticky_container">
+            <div id="sticky">Check out these great HTML5 <a href="http://www.apple.com/html5/">demos!</a></div>
+        </div>
+    </div>
+
+</body>
+</html>

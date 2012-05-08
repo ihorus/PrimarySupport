@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/primarySupport/!svn/ver/490/modules/status_board/actions
+END
+updatesByDay.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/primarySupport/!svn/ver/372/modules/status_board/actions/updatesByDay.php
+END
+jobsBySchool.php
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/primarySupport/!svn/ver/490/modules/status_board/actions/jobsBySchool.php
+END
+tagCloud.php
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/primarySupport/!svn/ver/385/modules/status_board/actions/tagCloud.php
+END
+userIdenticaStatus.php
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/primarySupport/!svn/ver/385/modules/status_board/actions/userIdenticaStatus.php
+END
+jobsByUser.php
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/primarySupport/!svn/ver/443/modules/status_board/actions/jobsByUser.php
+END
