@@ -28,7 +28,7 @@ function paragraphTidyup($string = "") {
 	// Return:	the same string, with <br /> tags inplace of hard returns AND URLs fully hyperlinked
 	
 	// terrible preg_replace pattern, I know - why don't you do better!
-	$string = preg_replace('@((https|http|www)://([-\w\.]+)+(:\d+)?(/([\w/_\.\-\%\+]*(\?\S+)?)?)?)@', '<a href="$1">$1</a>', $string);
+	$string = preg_replace('@((https|http|www)://([-\w\.]+)+(:\d+)?(/([\w/_\.\-\%\@\+]*(\?\S+)?)?)?)@', '<a href="$1">$1</a>', $string);
 	
 	//replace any hard returns with proper HTML <br /> tags
 	$string = str_replace("\r", "<br />", $string);
