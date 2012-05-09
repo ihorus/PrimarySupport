@@ -5,10 +5,6 @@
 	<title><?php echo(SITE_NAME . " - " . SITE_SLOGAN); ?></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
-	<script src="js/jquery-1.7.1.min.js"></script>
-	<script src="js/jquery-ui-1.8.18.custom.min.js"></script>
-	<script src="js/bootstrap.js"></script>
-	
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="author" content="ICT Facilities, Wallingford School" />
 	<meta name="description" content="Primary ICT Support" />

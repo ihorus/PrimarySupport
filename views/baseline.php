@@ -14,6 +14,10 @@
 	</div>
 </div>
 
+<script src="js/jquery-1.7.1.min.js"></script>
+<script src="js/jquery-ui-1.8.18.custom.min.js"></script>
+<script src="js/bootstrap.js"></script>
+
 <script>
 $(".test123").mouseover(function() {
 	//alert('test');
