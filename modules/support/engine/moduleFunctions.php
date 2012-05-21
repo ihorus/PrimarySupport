@@ -124,7 +124,23 @@ function expandInfoBar($string="Error in String", $checkUID = NULL) {
 		return $string;
 	}
 	
-	function displayAttachment($attachmentURL) {
+	function displayAttachment($attachmentsArray = NULL) {
+		if (!is_array($attachmentsArray)) {
+			$attachmentsArray = explode(",", $attachmentsArray);
+		}
+		
+		$output  = ("<ul class=\"thumbnails\">");
+		
+		foreach ($attachmentsArray AS $attachment) {
+			$output .= displayImage($attachment);
+		}
+		
+		$output .= ("</ul>");
+		
+		return $output;
+	}
+	
+	function displayImage($attachmentURL) {
 		
 		// if the file doesn't exist, use a default 'not found' image
 		if (!file_exists($attachmentURL)) {
@@ -157,14 +173,13 @@ function expandInfoBar($string="Error in String", $checkUID = NULL) {
 				$imgWidth = $width;
 			}
 			
-			$displayCode  = ("<ul class=\"thumbnails\">");
-				$displayCode .= ("<li class=\"span3\">");
-					$displayCode .= ("<a href=\"" . $attachmentURL . "\" class=\"thumbnail\">");
-					$displayCode .= ("<img ");
-						$displayCode .= ("src=\"" . $attachmentURL . "\">");
-					$displayCode .= ("</a>");
-				$displayCode .= ("</li>");
-			$displayCode .= ("</ul>");
+			
+			$displayCode = ("<li class=\"span3\">");
+				$displayCode .= ("<a href=\"" . $attachmentURL . "\" class=\"thumbnail\">");
+				$displayCode .= ("<img ");
+					$displayCode .= ("src=\"" . $attachmentURL . "\">");
+				$displayCode .= ("</a>");
+			$displayCode .= ("</li>");
 		} else {
 			// otherwise, the attachment must be a file of some other type
 			// hyperlink to it instead
