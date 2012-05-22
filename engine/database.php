@@ -37,6 +37,7 @@ class MySQLDatabase {
 	private function confirm_query($result) {
 		if (!$result) {
 			die ("Database query failed: " . mysql_error());
+			//echo ("Database query failed: " . mysql_error());
 		}
 	}
 	
@@ -59,6 +60,22 @@ class MySQLDatabase {
 	return $value;
 	}
 	
+	function table_exists ($tableSearch = NULL) {
+		// check to see if a table of '$tableSearch' exists in the current working database
+		$sql  = "SHOW TABLES FROM " . DB_NAME ." ";
+		$sql .= "LIKE '" . $tableSearch . "' ";
+		
+		$result = mysql_query($sql);
+		
+		if (mysql_fetch_row($result)) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+		
+		mysql_free_result($result);
+	}
+
 	// "database-neutral" methods
 	
 	public function fetch_array ($result_set) {

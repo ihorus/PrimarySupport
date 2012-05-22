@@ -33,6 +33,14 @@ foreach ($includes as $include) {
 	}
 }
 
+// check if the application is installed
+if (!$database->table_exists("jobs")) {
+	echo "Install required";
+	redirect_to("install.php");
+}
+
+
+
 // go get all the enabled modules from the database
 $enabledModules = enabledModules();
 
