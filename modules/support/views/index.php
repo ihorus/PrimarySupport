@@ -107,57 +107,39 @@ if (isset($_GET['filter']) && $_GET['filter'] == "active") {
 		<h1><?php echo ucfirst($_GET['filter']); ?> Jobs <small> <?php echo count($Jobs); ?> total</small></h1>
 	</div>
 	
+	<?php
+	$rootAddress = "http://" . $_SERVER['HTTP_HOST'] . SITE_PATH;
+	$schoolActiveJobs = $rootAddress . "modules/support/views/jobs_subset.php?filter=active";
+	$schoolClosedJobs = $rootAddress . "modules/support/views/jobs_subset.php?uUID=" . $user->uid . "&filter=closed";
+	$schoolAllJobs = $rootAddress . "modules/support/views/jobs_subset.php?uUID=" . $school->uid . "&filter=all";;
+	?>
+	
 	<ul class="nav nav-tabs" id="myTab">
-		<li class="active"><a href="#activeJobs" data-toggle="tab">Active Jobs</a></li>
-		<li><a href="#closedJobs" data-toggle="tab">Recently Completed Jobs</a></li>
-		<li><a href="#allJobs" data-toggle="tab">All Jobs</a></li>
+		<li><a href="#activeJobs" data-toggle="tab" data-parameter="<?php echo $schoolActiveJobs;?>">Active Jobs</a></li>
+		<li><a href="#closedJobs" data-toggle="tab" data-parameter="<?php echo $schoolClosedJobs;?>">Recently Closed Jobs</a></li>
+		<li><a href="#allJobs" data-toggle="tab" data-parameter="<?php echo $schoolAllJobs;?>">All Jobs</a></li>
 	</ul>
 	
 	<div class="tab-content">
-		<div class="tab-pane active" id="activeJobs"></div>
-		<div class="tab-pane" id="closedJobs">Loading…</div>
-		<div class="tab-pane" id="allJobs"></div>
+		<div class="tab-pane" id="activeJobs">Loading...</div>
+		<div class="tab-pane" id="closedJobs">Loading...</div>
+		<div class="tab-pane" id="allJobs">Loading...</div>
 	</div>
-	
-	<?php
-	
-	$limitedJobs = paginateResults($Jobs);
-	
-	//display pagination navigation
-	echo paginationNavBar(count($Jobs));
-	echo "<div id=\"job_added\"></div>";
-	foreach ($limitedJobs as $job) {
-		echo $job->displayJob();
-	}
-	
-	//display pagination navigation
-	echo paginationNavBar(count($Jobs));
-	?>
-
-
 </div>
 </div>
 
 <script type="text/javascript">
 $(function () {
-	$('#activeJobs').tab('show')
+	$('.tabs #activeJobs').tab('show')
 	//$('.tabs a:last').tab('show')
 	
 	$('#myTab').on('shown', function (e) {
 		var nowtab = e.target // activated tab
+		var extAddress = $(nowtab).attr('data-parameter');
 		var divid = $(nowtab).attr('href').substr(1);
 		
-		if(divid == "activeJobs") {
-			$("#"+divid).load('http://intranet2/witches/modules/support/views/jobs_subset.php?uUID=<?php echo $user->uid; ?>&filter=active');
-		}
+		$("#"+divid).load(extAddress);
 		
-		if(divid == "closedJobs") {
-			$("#"+divid).load('http://intranet2/witches/modules/support/views/jobs_subset.php?uUID=<?php echo $user->uid; ?>&filter=completed');
-		}
-		
-		if(divid == "allJobs") {
-			$("#"+divid).load('http://intranet2/witches/modules/support/views/jobs_subset.php?uUID=<?php echo $user->uid; ?>');
-		}
 	})
 })
 </script>
