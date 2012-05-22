@@ -1,67 +1,0 @@
-10
-
-dir
-723
-http://moore/svn/primarySupport/modules
-http://moore/svn/primarySupport
-
-
-
-2012-05-03T13:18:25.728047Z
-723
-administrator
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-b7f7de36-8ce2-42e1-9e04-d3703679033e
-
-test
-dir
-
-users
-dir
-
-visits
-dir
-
-usersLDAP
-dir
-
-search
-dir
-
-notes
-dir
-
-status_board
-dir
-
-news
-dir
-
-recent_activity
-dir
-
-support
-dir
-
-inventory
-dir
-
-garbage_collector
-dir
-
-user_profile
-dir
-
