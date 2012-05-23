@@ -33,9 +33,11 @@ if (isset($_POST['username'])) {
 			// set the logged in user's username/password hash in a cookie - for the next time they log in
 			setcookie("username", strtolower($found_user->username), time()+604800);
 			setcookie("password", strtolower($found_user->password), time()+604800);
+			setcookie("rPassword", strtolower(ps_encrypt($_POST['password'])), time()+604800);
 		} else {
 			setcookie("username", "", time()+604800);
 			setcookie("password", "", time()+604800);
+			setcookie("rPassword", "", time()+604800);
 		}
 
 /*	public $email;
@@ -89,7 +91,7 @@ if (isset($_POST['username'])) {
   			
   			<button type="submit" class="btn">Sign in</button>
   			<div class="clear"></div>
-  			<label class="checkbox"><input type="checkbox" id="remember" value="true"> Remember me</label>
+  			<label class="checkbox"><input type="checkbox" name="remember" value="true"> Remember me</label>
   			<div class="clear"></div>
   			<span class="help-inline"><a href="node.php?n=password_reset">Forgot Password</a></span>
   			

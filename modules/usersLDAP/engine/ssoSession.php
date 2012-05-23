@@ -35,7 +35,7 @@ class ldapSession {
 	
 	function is_logged_in(){
 		// check to see if we're already logged in
-		if (!isset($_SESSION['cUser']['logonStatus']) || (!isset($_SESSION['cUser']['uid']))) {
+		if (!isset($_SESSION['currentUser']['uid'])) {
 			// we're not logged in yet, so authenticate against the AD
 			$this->ldapAuthenticate();
 			//$this->fakeLogon();
@@ -110,6 +110,12 @@ class ldapSession {
 		$this->ldapBind();
 		$entries = NULL;
 		
+		if (!isset($this->username)) {
+			$this->username = $_COOKIE['username'];
+			$this->password = ps_decrypt($_COOKIE['rPassword']);
+			
+			echo "<h1>Logging in with cookie credentials (" . $this->username . "/" . $_COOKIE['rPassword'] . ")</h1>";
+		}
 		// Create filter (we only want to search the username)
 		// As we only have security credentials for one person anyway, this will return the user
 		
@@ -147,14 +153,10 @@ class ldapSession {
 
 			
 			$returnValue = TRUE;
-		} else {
-			$returnValue = FALSE;
 		}
-				
+		
 		return $returnValue;
 	}
-	
-
 	
 	function gatekeeper($groupRequired = "Admin") {
 		if ($this->is_in_group($groupRequired)) {
