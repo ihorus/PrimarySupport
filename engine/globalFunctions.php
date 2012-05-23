@@ -165,9 +165,9 @@ function gatekeeperCheck($pageAccess = 99) {
 	// security check!
 	global $pageAccess;
 	
-	$currentUser = User::find_by_uid($_SESSION['currentUser']['uid']);
+	$currentUser = User::find_by_uid($_SESSION['cUser']['uid']);
 
-	if (is_null($_SESSION['currentUser']['uid'])) {
+	if (is_null($_SESSION['cUser']['uid'])) {
 		$currentUser->access = 999;
 	}
 	
@@ -229,7 +229,7 @@ function displayToolbar($addURL = "#", $editURL = "#", $deleteURL = "#") {
 function isAdmin($userUID = NULL) {
 	if ($userUID == NULL) {
 		// set the user in question to be the current logged in user
-		$userUID = $_SESSION['currentUser']['uid'];
+		$userUID = $_SESSION['cUser']['uid'];
 	}
 	
 	$userInQuestion = User::find_by_uid($userUID);
@@ -244,7 +244,7 @@ function isAdmin($userUID = NULL) {
 function isTechnician($userUID = NULL) {
 	if ($userUID == NULL) {
 		// set the user in question to be the current logged in user
-		$userUID = $_SESSION['currentUser']['uid'];
+		$userUID = $_SESSION['cUser']['uid'];
 	}
 	
 	$userInQuestion = User::find_by_uid($userUID);

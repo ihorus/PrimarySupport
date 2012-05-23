@@ -153,7 +153,7 @@ class Response extends DatabaseObject {
 				$database->query($sqlUpdate);
 				
 				// get the user preferece for e-mail delivery
-				$sendEmailOnResponse = UserSettings::get_setting($_SESSION['currentUser']['uid'], "email_send_on_support_response");
+				$sendEmailOnResponse = UserSettings::get_setting($_SESSION['cUser']['uid'], "email_send_on_support_response");
 				
 				// if the user wants an e-mail, send one
 				if ($sendEmailOnResponse == "TRUE") {
@@ -209,7 +209,7 @@ class Response extends DatabaseObject {
 		$sql .= $database->escape_value($this->school_uid) . "', '";
 		$sql .= $database->escape_value($this->spawn) . "', '";
 		$sql .= $database->escape_value($this->description) . "', '";
-		$sql .= $database->escape_value($_SESSION['currentUser']['uid']) . "')";
+		$sql .= $database->escape_value($_SESSION['cUser']['uid']) . "')";
 		
 		$database->query($sql);
 		
@@ -240,7 +240,7 @@ class Response extends DatabaseObject {
 		$response = Response::find_by_uid($this->uid);		
 		$originalJob = Support::find_by_uid($response->spawn);
 		
-		$description = "-- created from a response to job  " . $originalJob->uid . " by " . $_SESSION['currentUser']['firstname'] . " --<br />";
+		$description = "-- created from a response to job  " . $originalJob->uid . " by " . $_SESSION['cUser']['firstname'] . " --<br />";
 		$description .= $response->description;
 		
 		// some sql to do stuff later
@@ -260,11 +260,11 @@ class Response extends DatabaseObject {
 		
 		$statement = "promoted this response to";
 				
-		$entity1 = "{User:" . $_SESSION['currentUser']['uid'] . "}";
+		$entity1 = "{User:" . $_SESSION['cUser']['uid'] . "}";
 		$description = " " . $statement . " job {Job:" . $response->uid . "}";
 		
 		$info->description = ($entity1 . $description);
-		$info->user_uid = $_SESSION['currentUser']['uid'];
+		$info->user_uid = $_SESSION['cUser']['uid'];
 		$info->create_info();
 		
 		return $database->insert_id();

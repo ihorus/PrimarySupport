@@ -1,6 +1,6 @@
 <?php
 gatekeeper(3);
-$schoolUIDS = ps_sanitise_array($_SESSION['currentUser']['school_uid']);
+$schoolUIDS = ps_sanitise_array($_SESSION['cUser']['schoolUID']);
 
 ?>
 

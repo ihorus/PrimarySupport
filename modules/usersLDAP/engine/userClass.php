@@ -64,6 +64,19 @@ class User extends DatabaseObject {
 		return !empty($result_array) ? array_shift($result_array) : false;
 	}
 	
+	public static function find_by_username($username = NULL) {
+		global $database;
+		
+		$sql  = "SELECT * FROM " . self::$table_name . " ";
+		$sql .= "WHERE username = '" . $username . "' ";
+		$sql .= "LIMIT 1";
+		
+		echo $sql;
+		$result_array = self::find_by_sql($sql);
+		
+		return !empty($result_array) ? array_shift($result_array) : false;
+	}
+	
 	public static function find_by_MD5email($uid = NULL, $MD5email = NULL) {
 		global $database;
 		
@@ -307,6 +320,4 @@ class User extends DatabaseObject {
 		return $schoolUIDS;
 	}
 }
-
-
 ?>

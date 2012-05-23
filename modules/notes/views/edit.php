@@ -1,7 +1,7 @@
 <?php
 $note = Notes::find_by_uid($_GET['noteUID']);
 $school = Group::find_by_uid($note->school_uid);
-$schoolUIDS = ps_sanitise_array($_SESSION['currentUser']['school_uid']);
+$schoolUIDS = ps_sanitise_array($_SESSION['cUser']['schoolUID']);
 
 if (in_array($note->school_uid, $schoolUIDS)) {
 	gatekeeper(3);

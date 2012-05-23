@@ -198,14 +198,14 @@ $(function() {
 
 <?php
 if (isset($_GET['userUID'])) {
-	if ($_SESSION['currentUser']['uid'] == $_GET['userUID']) {
+	if ($_SESSION['cUser']['uid'] == $_GET['userUID']) {
 		gatekeeper(3);
 	} else {
 		gatekeeper(2);
 	}
 } else {
 	gatekeeper(3);
-	$_GET['userUID'] = $_SESSION['currentUser']['uid'];
+	$_GET['userUID'] = $_SESSION['cUser']['uid'];
 }
 
 $user = User::find_by_uid($_GET['userUID']);
@@ -230,7 +230,7 @@ $(document).ready(function() {
 		echo ("<h2>Update Complete</h2>");
 	}
 
-		if ($user->uid == $_SESSION['currentUser']['uid']) {
+		if ($user->uid == $_SESSION['cUser']['uid']) {
 			echo ("<h2>My Profile Information</h2>");
 		} else {
 			echo ("<h2>Edit " . $user->firstname . "'s <i>(" . $user->username . ")</i> Profile Information</h2>");
@@ -329,7 +329,7 @@ $(document).ready(function() {
 
 <div class="grid_9 alpha omega">
 	<?php
-		if ($user->uid == $_SESSION['currentUser']['uid']) {
+		if ($user->uid == $_SESSION['cUser']['uid']) {
 			echo ("<h2>My Settings</h2>");
 		} else {
 			echo ("<h2>Settings for " . $user->firstname . " <i>(" . $user->username . ")</i></h2>");

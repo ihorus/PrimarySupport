@@ -122,8 +122,7 @@ class Activity extends DatabaseObject {
 		if ($relevant == TRUE) {
 			// limit activity to that of the users school only
 			
-			//$currentSchool = $_SESSION['currentUser']['school_uid'];
-			$schoolUIDS = ps_sanitise_array($_SESSION['currentUser']['school_uid']);
+			$schoolUIDS = ps_sanitise_array($_SESSION['cUser']['schoolUID']);
 			
 			//$activity = self::find_relevant_activity($all = FALSE, $schoolUID = $currentSchool);
 			$activity = self::find_relevant_activity($all, $schoolUIDS);

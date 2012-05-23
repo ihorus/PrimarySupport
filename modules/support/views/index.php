@@ -54,9 +54,9 @@ $(function() {
 });
 </script>
 <?
-$school = Group::find_by_uid($_SESSION['currentUser']['school_uid']);
+$school = Group::find_by_uid($_SESSION['cUser']['schoolUID']);
 $schools = Group::find_all();
-$user = User::find_by_uid($_SESSION['currentUser']['uid']);
+$user = User::find_by_uid($_SESSION['cUser']['uid']);
 
 
 
@@ -96,7 +96,7 @@ if (isset($_GET['filter']) && $_GET['filter'] == "active") {
 		</div>
 		<div id="loading_spinner_placeholder" style="float: right;"></div><br />
 		
-		<input name="school_uid" type="hidden" id="school_uid" value="<?php echo ($_SESSION['currentUser']['school_uid']); ?>">
+		<input name="school_uid" type="hidden" id="school_uid" value="<?php echo ($_SESSION['cUser']['schoolUID']); ?>">
 		<input type="hidden" id="submit_job" value="TRUE">
 		</fieldset>
 	</form>

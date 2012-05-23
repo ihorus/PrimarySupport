@@ -10,7 +10,7 @@ if (isset($_POST['description'])) {
 	$job->priority = 3;
 	
 	// check to see if this response should be logged on behalf of someone else
-	if ($_POST['onBehalfOfUserUID'] !== $_SESSION['currentUser']['uid']) {
+	if ($_POST['onBehalfOfUserUID'] !== $_SESSION['cUser']['uid']) {
 		if (isTechnician()){
 			// change the user logging the job to the selected user
 			$job->user_uid = $_POST['onBehalfOfUserUID'];
@@ -37,21 +37,21 @@ if (isset($_POST['description'])) {
 		
 		
 			// add a message to the description to say that it was logged on behalf of someone else
-			$name1 = $_SESSION['currentUser']['firstname'] . " " . $_SESSION['currentUser']['lastname'];
+			$name1 = $_SESSION['cUser']['firstname'] . " " . $_SESSION['cUser']['lastname'];
 			$name2 = $behalfOfUser->firstname . " " . $behalfOfUser->lastname;
 			
 			$job->description  = "-- job logged by " . $name1 . " on behalf of " . $name2 . " --<br />";
 			$job->description .= $_POST['description'];
 		} else {
 			// change the user logging the job to the selected user
-			$job->user_uid = $_SESSION['currentUser']['uid'];		
+			$job->user_uid = $_SESSION['cUser']['uid'];		
 			$job->description = $_POST['description'];
 			$job->school_uid = $_POST['onBehalfOfUser'];
 		}
 	} else {
-		$job->user_uid = $_SESSION['currentUser']['uid'];
+		$job->user_uid = $_SESSION['cUser']['uid'];
 		$job->description = $_POST['description'];
-		$job->school_uid = $_SESSION['currentUser']['school_uid'];
+		$job->school_uid = $_SESSION['cUser']['schoolUID'];
 	}
 	
 	$job->attachment = NULL;

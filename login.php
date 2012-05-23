@@ -5,12 +5,13 @@ require_once(SITE_LOCATION . "/engine/" . "initialise.php");
 
 if (isset($_GET['logout']) & $_GET['logout'] == TRUE) {
 	$logout = Session::logout();
+	unset($_SESSION['cUser']);
+	unset($_COOKIE);
 }
 
 if ($session->is_logged_in()) {
 	redirect_to("index.php");
 }
-
 		
 if (isset($_POST['username'])) {
 	$username = trim($_POST['username']);
@@ -21,6 +22,7 @@ if (isset($_POST['username'])) {
 	if ($found_user && $found_user->active == TRUE) {
 		$session->login($found_user);
 				
+		/*
 		$_SESSION['currentUser']['uid'] = $found_user->uid;
 		$_SESSION['currentUser']['firstname'] = $found_user->firstname;
 		$_SESSION['currentUser']['lastname'] = $found_user->lastname;
@@ -28,7 +30,7 @@ if (isset($_POST['username'])) {
 		$_SESSION['currentUser']['school_uid'] = $found_user->school_uid;
 		$_SESSION['currentUser']['access'] = $found_user->access;
 		$_SESSION['currentUser']['lastname'] = $found_user->lastname;
-		
+		*/
 		if (isset($_POST['remember']) && $_POST['remember'] == true) {
 			// set the logged in user's username/password hash in a cookie - for the next time they log in
 			setcookie("username", strtolower($found_user->username), time()+604800);

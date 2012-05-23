@@ -9,24 +9,24 @@ if (isset($_POST['description'])) {
 	$response->spawn = $_POST['jobUID'];
 	
 	// check to see if this response should be logged on behalf of someone else
-	if ($_POST['onBehalfOfUser'] !== $_SESSION['currentUser']['uid']) {
+	if ($_POST['onBehalfOfUser'] !== $_SESSION['cUser']['uid']) {
 		if (isTechnician()){
 			// change the user logging the job to the selected user
 			$response->user_uid = $_POST['onBehalfOfUser'];
 			$behalfOfUser = User::find_by_uid($_POST['onBehalfOfUser']);
 		
 			// add a message to the description to say that it was logged on behalf of someone else
-			$name1 = $_SESSION['currentUser']['firstname'] . " " . $_SESSION['currentUser']['lastname'];
+			$name1 = $_SESSION['cUser']['firstname'] . " " . $_SESSION['cUser']['lastname'];
 			$name2 = $behalfOfUser->firstname . " " . $behalfOfUser->lastname;
 			$response->description  = "-- response logged by " . $name1 . " on behalf of " . $name2 . " --<br />";
 			$response->description .= $_POST['description'];
 		} else {
 			// change the user logging the job to the selected user
-			$response->user_uid = $_SESSION['currentUser']['uid'];		
+			$response->user_uid = $_SESSION['cUser']['uid'];		
 			$response->description = $_POST['description'];
 		}
 	} else {
-		$response->user_uid = $_SESSION['currentUser']['uid'];
+		$response->user_uid = $_SESSION['cUser']['uid'];
 		$response->description = $_POST['description'];
 	}
 	

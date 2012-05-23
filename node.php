@@ -2,7 +2,7 @@
 require_once("engine/initialise.php");
 
 // check to see if the current user is logged in
-if (!$session->is_logged_in()) {
+if (!$ldapSession->is_logged_in()) {
 	// the user isn't logged in, but are they are accessing one of the public pages?
 	if ($_GET['n'] == "password_reset" || $_GET['n'] == "login") {
 	} else {
@@ -43,7 +43,7 @@ if (isset($pageAccess)) {
 		ob_end_clean();
 		echo "You do not have sufficient access to view this page.";
 		echo ("<br />");
-		echo ("You have access " . $_SESSION['currentUser']['access'] . " and you have tried to access a page that requires access " . $pageAccess . " (the lower the number, the higher the clearance)");
+		echo ("You have access " . $_SESSION['cUser']['access'] . " and you have tried to access a page that requires access " . $pageAccess . " (the lower the number, the higher the clearance)");
 	}
 	
 } else {

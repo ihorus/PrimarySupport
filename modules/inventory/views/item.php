@@ -1,6 +1,6 @@
 <?php
 gatekeeper(3);
-$currentUser = User::find_by_uid($_SESSION['currentUser']['uid']);
+$currentUser = User::find_by_uid($_SESSION['cUser']['uid']);
 
 if (isset($_POST['update_item'])) {
 	// update item in inventory

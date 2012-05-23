@@ -6,7 +6,7 @@ if (isTechnician()) {
 	$activeJobs = Support::find_by_sql("SELECT * FROM jobs WHERE type = 'Job' AND active = TRUE ORDER BY entry LIMIT 25");
 } else {
 	// generate a list of all jobs for a school (limit to 25)
-	$activeJobs = Support::find_by_sql("SELECT * FROM jobs WHERE type = 'Job' AND active = TRUE AND school_uid = " . $_SESSION['currentUser']['school_uid'] . " ORDER BY entry LIMIT 25");
+	$activeJobs = Support::find_by_sql("SELECT * FROM jobs WHERE type = 'Job' AND active = TRUE AND school_uid = " . $_SESSION['cUser']['schoolUID'] . " ORDER BY entry LIMIT 25");
 }
 
 //$query_jobs_active

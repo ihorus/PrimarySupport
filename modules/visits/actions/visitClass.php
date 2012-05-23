@@ -66,7 +66,7 @@ class Visit extends DatabaseObject {
 		global $database;
 		
 		if ($userUID == NULL) {
-			$userUID = $_SESSION['currentUser']['uid'];
+			$userUID = $_SESSION['cUser']['uid'];
 		}
 		
 		$dateFrom = strtotime($dateFrom);
@@ -107,13 +107,13 @@ class Visit extends DatabaseObject {
 			$info->school_uid = $this->school_uid;
 			$info->spawn = 0;
 	
-			$entity1  = "{User:" . $_SESSION['currentUser']['uid'] . "}";
+			$entity1  = "{User:" . $_SESSION['cUser']['uid'] . "}";
 			$description  = " logged visit {Visit:" . $database->insert_id() . "}";
 			$description .= " to {School:" . $this->school_uid . "}";
 			$entity2 = "";
 
 			$info->description = ($entity1 . $description . $entity2);
-			$info->user_uid = $_SESSION['currentUser']['uid'];
+			$info->user_uid = $_SESSION['cUser']['uid'];
 			$info->create_info();
 		}
 		
@@ -122,7 +122,7 @@ class Visit extends DatabaseObject {
 	
 	public function allVisitsByTechnician($technicianUID = NULL) {
 		if ($technicianUID == NULL) {
-			$technicianUID = $_SESSION['currentUser']['uid'];
+			$technicianUID = $_SESSION['cUser']['uid'];
 		}
 	
 		$sql  = "SELECT * FROM " . self::$table_name . " ";

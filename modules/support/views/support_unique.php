@@ -300,7 +300,7 @@ $(function() {
 
 <?php
 $job = Support::find_by_uid($_GET['supportUID']);
-$schoolUIDS = ps_sanitise_array($_SESSION['currentUser']['school_uid']);
+$schoolUIDS = ps_sanitise_array($_SESSION['cUser']['schoolUID']);
 
 if (in_array($job->school_uid, $schoolUIDS)) {
 	gatekeeper(3);

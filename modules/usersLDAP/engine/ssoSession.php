@@ -9,7 +9,7 @@ class ldapSession {
 	
 	function __construct() {
 		session_start();
-		
+				
 		// check if we're logged in automatically
 		$this->is_logged_in();
 	}
@@ -35,13 +35,14 @@ class ldapSession {
 	
 	function is_logged_in(){
 		// check to see if we're already logged in
-		if (!isset($_SESSION['currentUser']['uid'])) {
+		if (!isset($_SESSION['cUser']['uid'])) {
 			// we're not logged in yet, so authenticate against the AD
-			$this->ldapAuthenticate();
+			$this->ldapAuthenticate()
 			//$this->fakeLogon();
 		}
 		
 		return $_SESSION['cUser']['logonStatus'];
+		return "1";
 	}
 	
 	function is_in_group($groupName = NULL) {
@@ -107,15 +108,16 @@ class ldapSession {
 	
 	function ldapAuthenticate() {
 		$_SESSION['cUser']['logonStatus'] = FALSE;
-		$this->ldapBind();
-		$entries = NULL;
+		
 		
 		if (!isset($this->username)) {
 			$this->username = $_COOKIE['username'];
 			$this->password = ps_decrypt($_COOKIE['rPassword']);
-			
-			echo "<h1>Logging in with cookie credentials (" . $this->username . "/" . $_COOKIE['rPassword'] . ")</h1>";
 		}
+		
+		$this->ldapBind();
+		$entries = NULL;
+		
 		// Create filter (we only want to search the username)
 		// As we only have security credentials for one person anyway, this will return the user
 		
@@ -123,19 +125,31 @@ class ldapSession {
 		$filter = "(SAMAccountName=" . $this->username . ")";
 		
 		if ($this->password != "" && $this->username != "") {
+						
 			$entries = ldap_search($this->ad, $baseDN, $filter);
 			$entries = ldap_get_entries($this->ad, $entries);
 		}
-		
+		//printArray($entries);
 		// check to see if either search resulted in a hit
 		if ($entries["count"] == 1) {
+			$output  = "<div class=\"alert alert-info\">";
+			$output .= "<button class=\"close\" data-dismiss=\"alert\">x</button>";
+			$output .= "<strong>LDAP Search Complete</strong> Found LDAP user: " . $_SESSION['cUser']['username'];
+			$output .= "</div>";
+			
+			echo $output;
+			
 			$_SESSION['cUser']['logonStatus'] = TRUE;
 			$_SESSION['cUser']['firstname'] = $entries[0]["givenname"][0];
 			$_SESSION['cUser']['lastname'] = $entries[0]["sn"][0];
 			$_SESSION['cUser']['username'] = $entries[0]["samaccountname"][0];
 			$_SESSION['cUser']['email'] = $entries[0]["mail"][0];
 			$_SESSION['cUser']['ldapGroups'] = $entries[0]['memberof'];
-			$_SESSION['cUser']['uid'] = "TEST";
+			
+			$localUser = User::find_by_username($_SESSION['cUser']['username']);
+						
+			$_SESSION['cUser']['uid'] = $localUser->uid;
+			$_SESSION['cUser']['schoolUID'] = $localUser->school_uid;
 			
 			$user->username = $_SESSION['cUser']['username'];
 			$user->firstName = $_SESSION['cUser']['firstname'];

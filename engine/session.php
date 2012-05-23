@@ -10,8 +10,8 @@ class Session {
 	}
 	
 	public function is_logged_in() {
-		if(isset($_SESSION['currentUser']['uid'])) {
-			$this->user_id = $_SESSION['currentUser']['uid'];
+		if(isset($_SESSION['cUser']['uid'])) {
+			$this->user_id = $_SESSION['cUser']['uid'];
 			$this->logged_in = true;
 		} else {
 			unset($this->user_id);
@@ -32,7 +32,7 @@ class Session {
 	
 	public function logout() {
 		unset ($_SESSION['user_id']);
-		unset ($_SESSION['currentUser']);
+		unset ($_SESSION['cUser']);
 	}
 	
 	public function forgot_password($email) {

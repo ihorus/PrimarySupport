@@ -17,7 +17,7 @@ if (isTechnician()) {
 	$notesResults = $results->find_all_notes();
 } else {
 	// current user is a user, only search their own school's jobs
-	$jobResults = $results->find_school_jobs($_SESSION['currentUser']['school_uid']);
+	$jobResults = $results->find_school_jobs($_SESSION['cUser']['schoolUID']);
 
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
 gatekeeper(2);
 
-$currentUser = User::find_by_uid($_SESSION['currentUser']['uid']);
+$currentUser = User::find_by_uid($_SESSION['cUser']['uid']);
 $myActiveJobs = Support::find_by_sql("SELECT * FROM jobs WHERE type = 'Job' AND owner_uid = '" . $currentUser->uid . "' AND active = TRUE ORDER BY entry");
 $myCompletedJobs = Support::find_by_sql("SELECT * FROM jobs WHERE type = 'Job' AND owner_uid = '" . $currentUser->uid . "' AND active = 0 ORDER BY job_closed DESC LIMIT 5");
 

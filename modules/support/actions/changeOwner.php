@@ -9,18 +9,18 @@ if (isset($_POST['ownerUID'])) {
 	$info->school_uid = "0";
 	$info->spawn = $originalJobUID;
 	
-	if ($_SESSION['currentUser']['uid'] == $newOwnerUID) {
-		$entity1  = "{User:" . $_SESSION['currentUser']['uid'] . "}";
+	if ($_SESSION['cUser']['uid'] == $newOwnerUID) {
+		$entity1  = "{User:" . $_SESSION['cUser']['uid'] . "}";
 		$description = " took ownership of job {Job:" . $originalJobUID . "}";
 		$entity2 = "";
 	} else {
-		$entity1 = "{User:" . $_SESSION['currentUser']['uid'] . "}";
+		$entity1 = "{User:" . $_SESSION['cUser']['uid'] . "}";
 		$description = " assigned job {Job:" . $originalJobUID . "} to ";
 		$entity2 = "{User:" . $newOwnerUID . "}";
 	}
 	
 	$info->description = ($entity1 . $description . $entity2);
-	$info->user_uid = $_SESSION['currentUser']['uid'];
+	$info->user_uid = $_SESSION['cUser']['uid'];
 	
 	$jobChangeOwner = Support::assignJob($newOwnerUID, $originalJobUID);
 	
