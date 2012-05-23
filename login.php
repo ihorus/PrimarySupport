@@ -5,7 +5,7 @@ require_once(SITE_LOCATION . "/engine/" . "initialise.php");
 
 if (isset($_GET['logout']) & $_GET['logout'] == TRUE) {
 	$logout = Session::logout();
-	unset($_SESSION['cUser']);
+	unset($_SESSION[SITE_UNIQUE_KEY]['cUser']);
 	unset($_COOKIE);
 }
 

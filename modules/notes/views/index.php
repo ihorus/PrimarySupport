@@ -2,7 +2,7 @@
 
 <?php
 $note = Notes::find_by_uid($_GET['noteUID']);
-$schoolUIDS = ps_sanitise_array($_SESSION['cUser']['schoolUID']);
+$schoolUIDS = ps_sanitise_array($_SESSION[SITE_UNIQUE_KEY]['cUser']['schoolUID']);
 
 if (in_array($note->school_uid, $schoolUIDS)) {
 	gatekeeper(3);

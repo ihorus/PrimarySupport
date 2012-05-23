@@ -1,7 +1,7 @@
 <?php
 gatekeeper(3);
 
-$currentUser = User::find_by_uid($_SESSION['cUser']['uid']);
+$currentUser = User::find_by_uid($_SESSION[SITE_UNIQUE_KEY]['cUser']['uid']);
 
 if (isset($_POST['add_item'])) {
 	// add item to the inventory

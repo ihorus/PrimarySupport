@@ -1,6 +1,7 @@
 <?php
 // Site Constants
 define ("SITE_VERSION", "3.2b");
+define ("SITE_UNIQUE_KEY", "sitea"); // if you're running more than 1 instance, this needs to be unique
 
 // Database Constants
 define ("DB_SERVER", "localhost"); // generally 'localhost'

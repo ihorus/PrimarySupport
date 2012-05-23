@@ -8,7 +8,7 @@ if (isset($_POST['add_news_submit'])) {
 	$addNews->title = $_POST['title'];
 	$addNews->active =  $_POST['active'];
 	$addNews->date =  $_POST['date'];
-	$addNews->user_uid = $_SESSION['cUser']['uid'];
+	$addNews->user_uid = $_SESSION[SITE_UNIQUE_KEY]['cUser']['uid'];
 	
 	if ($addNews->create()) {
 		$addNewsComplete = TRUE;

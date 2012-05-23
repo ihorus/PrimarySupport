@@ -10,7 +10,7 @@ $(function() {
 </script>
 
 <?php
-$user = User::find_by_uid($_SESSION['cUser']['uid']);
+$user = User::find_by_uid($_SESSION[SITE_UNIQUE_KEY]['cUser']['uid']);
 $schoolUIDS = ps_sanitise_array($user->school_uid);
 $i = 1;
 

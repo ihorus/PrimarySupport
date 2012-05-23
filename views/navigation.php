@@ -63,11 +63,11 @@ function makeLI($url, $name, $var1=0, $var2=0) {
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">My Profile <b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<?php
-							echo gravatarURL($_SESSION['cUser']['uid']);
+							echo gravatarURL($_SESSION[SITE_UNIQUE_KEY]['cUser']['uid']);
 							?>
-						<li><a href="node.php?n=user_unique&userUID=<?php echo $_SESSION['cUser']['uid']; ?>">View Profile</a></li>
-						<li><a href="node.php?m=user_profile/views/editUser.php&userUID=<?php echo $_SESSION['cUser']['uid']; ?>">Change Settings</a></li>
-						<li><a href="node.php?m=user_profile/views/editUser.php&userUID=<?php echo $_SESSION['cUser']['uid']; ?>">Reset Password</a></li>
+						<li><a href="node.php?n=user_unique&userUID=<?php echo $_SESSION[SITE_UNIQUE_KEY]['cUser']['uid']; ?>">View Profile</a></li>
+						<li><a href="node.php?m=user_profile/views/editUser.php&userUID=<?php echo $_SESSION[SITE_UNIQUE_KEY]['cUser']['uid']; ?>">Change Settings</a></li>
+						<li><a href="node.php?m=user_profile/views/editUser.php&userUID=<?php echo $_SESSION[SITE_UNIQUE_KEY]['cUser']['uid']; ?>">Reset Password</a></li>
 						
 						<li class="divider"></li>
 						<li><a href="node.php?n=admin_index">Admin</a></li>

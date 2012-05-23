@@ -15,11 +15,11 @@ class ldapSession {
 	}
 	
 	function serverUsername() {
-		return $_SESSION['cUser']['username'];
+		return $_SESSION[SITE_UNIQUE_KEY]['cUser']['username'];
 	}
 	
 	function ldapGroups() {
-		foreach ($_SESSION['cUser']['ldapGroups'] AS $group) {
+		foreach ($_SESSION[SITE_UNIQUE_KEY]['cUser']['ldapGroups'] AS $group) {
 			//clean up the full name given by LDAP
 			$firstCN = strpos($group, "CN=") + 3;
 			$firstComma = strpos($group, ",") - 3;
@@ -35,13 +35,13 @@ class ldapSession {
 	
 	function is_logged_in(){
 		// check to see if we're already logged in
-		if (!isset($_SESSION['cUser']['uid'])) {
+		if (!isset($_SESSION[SITE_UNIQUE_KEY]['cUser']['uid'])) {
 			// we're not logged in yet, so authenticate against the AD
 			$this->ldapAuthenticate();
 			//$this->fakeLogon();
 		}
 		
-		return $_SESSION['cUser']['logonStatus'];
+		return $_SESSION[SITE_UNIQUE_KEY]['cUser']['logonStatus'];
 		return "1";
 	}
 	
@@ -107,7 +107,7 @@ class ldapSession {
 	}
 	
 	function ldapAuthenticate() {
-		$_SESSION['cUser']['logonStatus'] = FALSE;
+		$_SESSION[SITE_UNIQUE_KEY]['cUser']['logonStatus'] = FALSE;
 		
 		
 		if (!isset($this->username)) {
@@ -134,27 +134,27 @@ class ldapSession {
 		if ($entries["count"] == 1) {
 			$output  = "<div class=\"alert alert-info\">";
 			$output .= "<button class=\"close\" data-dismiss=\"alert\">x</button>";
-			$output .= "<strong>LDAP Search Complete</strong> Found LDAP user: " . $_SESSION['cUser']['username'];
+			$output .= "<strong>LDAP Search Complete</strong> Found LDAP user: " . $_SESSION[SITE_UNIQUE_KEY]['cUser']['username'];
 			$output .= "</div>";
 			
 			echo $output;
 			
-			$_SESSION['cUser']['logonStatus'] = TRUE;
-			$_SESSION['cUser']['firstname'] = $entries[0]["givenname"][0];
-			$_SESSION['cUser']['lastname'] = $entries[0]["sn"][0];
-			$_SESSION['cUser']['username'] = $entries[0]["samaccountname"][0];
-			$_SESSION['cUser']['email'] = $entries[0]["mail"][0];
-			$_SESSION['cUser']['ldapGroups'] = $entries[0]['memberof'];
+			$_SESSION[SITE_UNIQUE_KEY]['cUser']['logonStatus'] = TRUE;
+			$_SESSION[SITE_UNIQUE_KEY]['cUser']['firstname'] = $entries[0]["givenname"][0];
+			$_SESSION[SITE_UNIQUE_KEY]['cUser']['lastname'] = $entries[0]["sn"][0];
+			$_SESSION[SITE_UNIQUE_KEY]['cUser']['username'] = $entries[0]["samaccountname"][0];
+			$_SESSION[SITE_UNIQUE_KEY]['cUser']['email'] = $entries[0]["mail"][0];
+			$_SESSION[SITE_UNIQUE_KEY]['cUser']['ldapGroups'] = $entries[0]['memberof'];
 			
-			$localUser = User::find_by_username($_SESSION['cUser']['username']);
+			$localUser = User::find_by_username($_SESSION[SITE_UNIQUE_KEY]['cUser']['username']);
 						
-			$_SESSION['cUser']['uid'] = $localUser->uid;
-			$_SESSION['cUser']['schoolUID'] = $localUser->school_uid;
+			$_SESSION[SITE_UNIQUE_KEY]['cUser']['uid'] = $localUser->uid;
+			$_SESSION[SITE_UNIQUE_KEY]['cUser']['schoolUID'] = $localUser->school_uid;
 			
-			$user->username = $_SESSION['cUser']['username'];
-			$user->firstName = $_SESSION['cUser']['firstname'];
-			$user->lastName = $_SESSION['cUser']['lastname'];
-			$user->email = $_SESSION['cUser']['email'];
+			$user->username = $_SESSION[SITE_UNIQUE_KEY]['cUser']['username'];
+			$user->firstName = $_SESSION[SITE_UNIQUE_KEY]['cUser']['firstname'];
+			$user->lastName = $_SESSION[SITE_UNIQUE_KEY]['cUser']['lastname'];
+			$user->email = $_SESSION[SITE_UNIQUE_KEY]['cUser']['email'];
 
 			if (self::is_in_group("Domain Admins")) {
 				$user->security = "Admin";

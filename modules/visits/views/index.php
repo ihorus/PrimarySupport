@@ -14,8 +14,8 @@ if (isset($_POST['visit_submit'])) {
 	$visit->departure = $departure;
 	$visit->description = $_POST['description'];
 	$visit->mileage_claim = $_POST['mileage_claim'];
-	$visit->user_uid = $_SESSION['cUser']['uid'];
-	$visit->tech_hourly = UserSettings::get_setting($_SESSION['cUser']['uid'],"user_per_hour_cost");
+	$visit->user_uid = $_SESSION[SITE_UNIQUE_KEY]['cUser']['uid'];
+	$visit->tech_hourly = UserSettings::get_setting($_SESSION[SITE_UNIQUE_KEY]['cUser']['uid'],"user_per_hour_cost");
 	
 	// insert visit to the database
 	echo ("Form submitted - Entry UID: " . $visit->create());
@@ -74,7 +74,7 @@ $(function() {
 	<p>User: <br />
 	<select name="user_uid">
 		<?php foreach($users AS $user) {
-		echo optionDropdown($user->uid, $user->firstname, $_SESSION['cUser']['uid']);
+		echo optionDropdown($user->uid, $user->firstname, $_SESSION[SITE_UNIQUE_KEY]['cUser']['uid']);
 		} ?>
 	</select>
 	</p>

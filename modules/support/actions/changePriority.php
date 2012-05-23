@@ -9,12 +9,12 @@ if (isset($_POST['jobUID'])) {
 	$info->school_uid = "0";
 	$info->spawn = $_POST['jobUID'];
 	
-	$entity1 = "{User:" . $_SESSION['cUser']['uid'] . "}";
+	$entity1 = "{User:" . $_SESSION[SITE_UNIQUE_KEY]['cUser']['uid'] . "}";
 	$description = " changed the priority of job {Job:" . $_POST['jobUID'] . "} to ";
 	$entity2 = priorityName($_POST['priority']);
 	
 	$info->description = ($entity1 . $description . $entity2);
-	$info->user_uid = $_SESSION['cUser']['uid'];
+	$info->user_uid = $_SESSION[SITE_UNIQUE_KEY]['cUser']['uid'];
 		
 	$jobChangePriority = Support::changePriority($_POST['priority'], $_POST['jobUID']);
 	

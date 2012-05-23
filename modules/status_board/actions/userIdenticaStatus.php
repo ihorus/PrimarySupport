@@ -26,8 +26,8 @@ function objectsIntoArray($arrObjData, $arrSkipIndices = array())
 
 
 
-$identicaUsername = UserSettings::get_setting($_SESSION['cUser']['uid'], "identi.ca_username");
-$identicaPassword = UserSettings::get_setting($_SESSION['cUser']['uid'], "identi.ca_password");
+$identicaUsername = UserSettings::get_setting($_SESSION[SITE_UNIQUE_KEY]['cUser']['uid'], "identi.ca_username");
+$identicaPassword = UserSettings::get_setting($_SESSION[SITE_UNIQUE_KEY]['cUser']['uid'], "identi.ca_password");
 
 $identica = new Identica($identicaUsername->setting_value, $identicaPassword->setting_value);
 

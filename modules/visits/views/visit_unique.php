@@ -3,7 +3,7 @@
 $visit = Visit::find_by_uid($_GET['visitUID']);
 $activity = Activity::relevantActivity($visit->arrival, $visit->school_uid);
 
-if (isTechnician() || $visit->school_uid == $_SESSION['cUser']['schoolUID']) {
+if (isTechnician() || $visit->school_uid == $_SESSION[SITE_UNIQUE_KEY]['cUser']['schoolUID']) {
 	gatekeeper(3);
 } else {
 	gatekeeper(2);

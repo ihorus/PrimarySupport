@@ -3,7 +3,7 @@
 <?php
 //$currentUser = User::find_by_uid($_SESSION[currentUserUID]);
 
-$schoolUIDS = ps_sanitise_array($_SESSION['cUser']['schoolUID']);
+$schoolUIDS = ps_sanitise_array($_SESSION[SITE_UNIQUE_KEY]['cUser']['schoolUID']);
 
 $school = Group::find_by_uid($_GET['schoolUID']);
 

@@ -203,11 +203,11 @@ class Support extends DatabaseObject {
 			$statement = "closed";
 		}
 		
-		$entity1 = "{User:" . $_SESSION['cUser']['uid'] . "}";
+		$entity1 = "{User:" . $_SESSION[SITE_UNIQUE_KEY]['cUser']['uid'] . "}";
 		$description = " " . $statement . " job {Job:" . $originalJob->uid . "}";
 		
 		$info->description = ($entity1 . $description);
-		$info->user_uid = $_SESSION['cUser']['uid'];
+		$info->user_uid = $_SESSION[SITE_UNIQUE_KEY]['cUser']['uid'];
 		
 		return $info->create_info();
 	}

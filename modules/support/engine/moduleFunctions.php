@@ -205,7 +205,7 @@ function expandInfoBar($string="Error in String", $checkUID = NULL) {
 	}
 	
 	function display_onbehalf_form_element() {
-		$schoolUIDS = ps_sanitise_array($_SESSION['cUser']['schoolUID']);
+		$schoolUIDS = ps_sanitise_array($_SESSION[SITE_UNIQUE_KEY]['cUser']['schoolUID']);
 		
 		$output  = "<div class=\"control-group\">";
 		
@@ -223,7 +223,7 @@ function expandInfoBar($string="Error in String", $checkUID = NULL) {
 				
 				foreach ($schoolUIDS AS $schoolUID) {
 					$userSchool = Group::find_by_uid($schoolUID);
-					$output .= optionDropdown($user->uid, $user->full_name(), $_SESSION['cUser']['uid']);
+					$output .= optionDropdown($user->uid, $user->full_name(), $_SESSION[SITE_UNIQUE_KEY]['cUser']['uid']);
 				}
 			}
 			$output .= ("</select>");
@@ -236,7 +236,7 @@ function expandInfoBar($string="Error in String", $checkUID = NULL) {
 			
 			foreach ($schoolUIDS AS $schoolUID) {
 				$userSchool = Group::find_by_uid($schoolUID);
-				$output .= optionDropdown($_SESSION['cUser']['uid'], ($_SESSION['cUser']['firstname'] . " at " . $userSchool->name), $schoolUID);
+				$output .= optionDropdown($_SESSION[SITE_UNIQUE_KEY]['cUser']['uid'], ($_SESSION[SITE_UNIQUE_KEY]['cUser']['firstname'] . " at " . $userSchool->name), $schoolUID);
 			}
 			
 			$output .= ("</select>");

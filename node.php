@@ -43,7 +43,7 @@ if (isset($pageAccess)) {
 		ob_end_clean();
 		echo "You do not have sufficient access to view this page.";
 		echo ("<br />");
-		echo ("You have access " . $_SESSION['cUser']['access'] . " and you have tried to access a page that requires access " . $pageAccess . " (the lower the number, the higher the clearance)");
+		echo ("You have access " . $_SESSION[SITE_UNIQUE_KEY]['cUser']['access'] . " and you have tried to access a page that requires access " . $pageAccess . " (the lower the number, the higher the clearance)");
 	}
 	
 } else {

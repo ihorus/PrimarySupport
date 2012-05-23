@@ -1,7 +1,7 @@
 <?php
 gatekeeper(3);
 
-$currentUser = User::find_by_uid($_SESSION['cUser']['uid']);
+$currentUser = User::find_by_uid($_SESSION[SITE_UNIQUE_KEY]['cUser']['uid']);
 $schoolUIDS = ps_sanitise_array($currentUser->school_uid);
 
 if (count($schoolUIDS) !== 1) {
@@ -13,7 +13,7 @@ if (count($schoolUIDS) !== 1) {
 if (isset($_POST['add_room'])) {
 	// add room
 	$room = new Classroom();
-	$room->school_uid = $_SESSION['cUser']['schoolUID'];
+	$room->school_uid = $_SESSION[SITE_UNIQUE_KEY]['cUser']['schoolUID'];
 	$room->name = $_POST['name'];
 	$room->teacher = $_POST['teacher'];
 	$room->notes = $_POST['notes'];

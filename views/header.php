@@ -1,7 +1,7 @@
 <?php
-if ($_SESSION['cUser']['username'] == "WILLIAMSC") {
+if ($_SESSION[SITE_UNIQUE_KEY]['cUser']['username'] == "WILLIAMSC") {
 	$class = "hero-unit2";
-}elseif($_SESSION['cUser']['username'] == "RUSHTONP") {
+}elseif($_SESSION[SITE_UNIQUE_KEY]['cUser']['username'] == "RUSHTONP") {
 	$class = "hero-unit3";
 } else {
 	$class = "hero-unit";

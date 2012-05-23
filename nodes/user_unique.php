@@ -2,7 +2,7 @@
 
 <?php
 
-if ($_SESSION['cUser']['uid'] == $_GET['userUID']) {
+if ($_SESSION[SITE_UNIQUE_KEY]['cUser']['uid'] == $_GET['userUID']) {
 	gatekeeper(3);
 } else {
 	gatekeeper(2);
