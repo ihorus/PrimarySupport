@@ -26,8 +26,12 @@ $classrooms = Classroom::find_all_by_school($currentUser->school_uid);
 
 ?>
 
-<!-- main -->
-<div id="main">
+<div class="row">
+<div class="span12">
+	<div class="page-header">
+		<h1>Inventory</h1>
+	</div>
+	
 	<h2>Locations</h2>
 	<?php
 	foreach ($classrooms AS $room) {
@@ -43,19 +47,35 @@ $classrooms = Classroom::find_all_by_school($currentUser->school_uid);
 		echo "<br />";
 	}
 	?>
-	
-	<form target="_self" method="POST" name="add_job" id="add_job">
-	<h2>Add New Location</h2>
-	<p>Room Name: <br />
-	<input type="text" name = "name" />
-	</p
-	<p>Staff Name: <br />
-	<input type="text" name = "teacher" />
-	</p>
-	<p>Notes: <br />
-	<textarea name = "notes" cols="80" rows="7"></textarea>
-	</p>
-	<input type="submit" />
-	<input type="hidden" name = "add_room" />
+</div>
+<div class="span12">
+	<form class="form-horizontal" target="_self" method="POST" name="add_job" id="add_job">
+	<fieldset>
+		<div class="control-group">
+			<label class="control-label" for="name">Room Name</label>
+			<div class="controls">
+				<input type="text" class="span3" placeholder="e.g. T8" name="name">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="teacher">Staff Name</label>
+			<div class="controls">
+				<input type="text" class="span3" placeholder="e.g. John Smith" name="teacher">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="notes">Notes</label>
+			<div class="controls">
+				<textarea class="input-xxlarge" name="notes" rows="5"></textarea>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<input class="btn-primary" type="submit" value="Add Room" id="submit">
+			</div>
+		</div>
+		<input type="hidden" name = "add_room" />
+	</fieldset>
 	</form>
+</div>
 </div>
