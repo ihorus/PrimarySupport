@@ -37,7 +37,7 @@ class ldapSession {
 		// check to see if we're already logged in
 		if (!isset($_SESSION['cUser']['uid'])) {
 			// we're not logged in yet, so authenticate against the AD
-			$this->ldapAuthenticate()
+			$this->ldapAuthenticate();
 			//$this->fakeLogon();
 		}
 		
