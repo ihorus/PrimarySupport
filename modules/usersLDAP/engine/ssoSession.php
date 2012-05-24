@@ -131,13 +131,6 @@ class ldapSession {
 		//printArray($entries);
 		// check to see if either search resulted in a hit
 		if ($entries["count"] == 1) {
-			$output  = "<div class=\"alert alert-info\">";
-			$output .= "<button class=\"close\" data-dismiss=\"alert\">x</button>";
-			$output .= "<strong>LDAP Search Complete</strong> Found LDAP user: " . $_SESSION[SITE_UNIQUE_KEY]['cUser']['username'];
-			$output .= "</div>";
-			
-			echo $output;
-			
 			$_SESSION[SITE_UNIQUE_KEY]['cUser']['logonStatus'] = TRUE;
 			$_SESSION[SITE_UNIQUE_KEY]['cUser']['firstname'] = $entries[0]["givenname"][0];
 			$_SESSION[SITE_UNIQUE_KEY]['cUser']['lastname'] = $entries[0]["sn"][0];

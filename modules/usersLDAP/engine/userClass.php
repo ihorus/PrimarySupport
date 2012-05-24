@@ -71,7 +71,6 @@ class User extends DatabaseObject {
 		$sql .= "WHERE username = '" . $username . "' ";
 		$sql .= "LIMIT 1";
 		
-		echo $sql;
 		$result_array = self::find_by_sql($sql);
 		
 		return !empty($result_array) ? array_shift($result_array) : false;
