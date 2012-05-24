@@ -12,6 +12,8 @@ class Inventory extends DatabaseObject {
 	public $serial;
 	public $notes;
 	public $purchase_date;
+	public $last_modified;
+	public $value;
 	
 	
 	
@@ -23,6 +25,13 @@ class Inventory extends DatabaseObject {
 		if (!$type == 0) {
 			$sql .= " AND type = '{$type}'";	
 		}
+		
+		return self::find_by_sql($sql);
+	}
+	
+	public function contents_by_roomUID() {
+		$sql  = "SELECT * FROM " . self::$table_name . " ";
+		$sql .= "WHERE classroom_uid = " . $this->classroom_uid . " ";
 		
 		return self::find_by_sql($sql);
 	}
@@ -82,11 +91,22 @@ class Inventory extends DatabaseObject {
 		return self::find_by_sql($sql);
 	}
 	
+	public static function itemsPurchasedBeforeByType($date = NULL) {
+		$sql  = "SELECT type, COUNT(*) AS uid, SUM(value) AS notes FROM " . self::$table_name . " ";
+		$sql .= "WHERE purchase_date <= " . strtotime($date) . " ";
+		$sql .= "AND classroom_uid <> '130' ";
+		$sql .= "AND classroom_uid <> '141' ";
+		$sql .= "GROUP BY type ";
+		$sql .= "ORDER BY COUNT(*) ASC";
+		
+		return self::find_by_sql($sql);
+	}
+	
 	public function create() {
 		global $database;
 	
 		$sql  = "INSERT INTO inventory (";
-		$sql .= "school_uid, classroom_uid, type, manufacturer, model, serial, notes, purchase_date";
+		$sql .= "school_uid, classroom_uid, type, manufacturer, model, serial, notes, value, last_modified, purchase_date";
 		$sql .= ") VALUES ('";
 		$sql .= $database->escape_value($this->school_uid) . "', '";
 		$sql .= $database->escape_value($this->classroom_uid) . "', '";
@@ -95,6 +115,8 @@ class Inventory extends DatabaseObject {
 		$sql .= $database->escape_value($this->model) . "', '";
 		$sql .= $database->escape_value($this->serial) . "', '";
 		$sql .= $database->escape_value($this->notes) . "', '";
+		$sql .= $database->escape_value($this->value) . "', '";
+		$sql .= date('Y-m-d H:i:s') . "', '";
 		$sql .= $database->escape_value($this->purchase_date) . "')";
 		
 		// insert the record to the database
@@ -109,7 +131,8 @@ class Inventory extends DatabaseObject {
 		$sql .= "type = '" . $database->escape_value($this->type) . "', ";
 		$sql .= "manufacturer = '" . $this->manufacturer . "', ";
 		$sql .= "model = '" . $database->escape_value($this->model) . "', ";
-		$sql .= "serial = '" . $database->escape_value($this->serial) . "', ";
+		$sql .= "value = '" . $database->escape_value($this->value) . "', ";
+		$sql .= "last_modified = '" . date('Y-m-d H:i:s') . "', ";
 		$sql .= "notes = '" . $database->escape_value($this->notes) . "' ";
 		$sql .= "WHERE uid = " . $this->uid;
 		
@@ -117,6 +140,17 @@ class Inventory extends DatabaseObject {
 		// update the record in the database
 		$database->query($sql);
 
+	}
+	
+	public function touchItem() {
+		global $database;
+		
+		$sql  = "UPDATE inventory SET ";
+		$sql .= "last_modified = '" . date('Y-m-d H:i:s') . "' ";
+		$sql .= "WHERE uid = " . $this->uid;
+		
+		// update the record in the database
+		$database->query($sql);
 	}
 } // end class Inventory
 

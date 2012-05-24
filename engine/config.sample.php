@@ -22,6 +22,8 @@ define ("SITE_ADMIN_EMAIL", "someone@somewhere.com");
 define ("INVOICE_PAYABLE", "COUNTY COUNCIL");
 define ("INVOICE_REMITTANCENAME", "YOUR BUSINESS NAME");
 
+define ("CURRENCY_SIGN", "&#163;"); // £
+
 /*
 not using these yet
 define ("SITE_ADDRESS1", "Wallingford School");

@@ -105,17 +105,20 @@ function dateDisplay($strUnixTime, $age=false) {
 			$strDateTime = $strDateTime . " <i>(" . howLongAgo($strUnixTime) . ")</i>";
 		}
 	}
+	
+	if (date('Y', $strUnixTime) < "1971") {
+		 $strDateTime = "<i class=\"icon-question-sign\"></i>";
+	}
 	return $strDateTime;
 } // END function dateDisplay()
 
 function moneyDisplay($value = FALSE, $showSymbol = TRUE) {
-	$currencySign = "&#163;";
 	$value = round($value,2);
 	
 	$value = number_format($value, 2, '.', ',');
 	
 	if ($showSymbol == TRUE) {
-		$value = $currencySign . $value;
+		$value = CURRENCY_SIGN . $value;
 	}
 	
 	return $value;

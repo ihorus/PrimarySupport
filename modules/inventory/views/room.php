@@ -48,29 +48,60 @@ $(function() {
 	});
 });
 </script>
-<!-- main -->
-<div id="main">
-	<h2><?php echo $classroom->name; ?></h2>
+
+<div class="row">
+<div class="span12">
+	<div class="page-header">
+		<h1><?php echo $classroom->roomName(); ?> <small>xx items
+		</small></h1>
+	</div>
+	
 	<?php
 	
 	foreach ($types AS $type) {
 		$items = Inventory::find_all_by_room($currentUser->school_uid, $classroom->uid, $type->type);
 	
-		echo ("<h3> (x" . count($items) . ") " . $type->type . "</h3>");
+		echo ("<h3>" . count($items) . " " . $type->type . "s</h3>");
 		
-		echo ("<ul>");
+		echo ("<table class=\"table table-bordered table-striped\">");
+		echo ("<thead><tr>");
+		echo "<th style=\"width: 20%\">" . "Manufacturer" . "</th>";
+		echo "<th style=\"width: 20%\">" . "Model" . "</th>";
+		echo "<th style=\"width: 25%\">" . "Serial" . "</th>";
+		echo "<th style=\"width: 25%\">" . "Purchase Date" . "</th>";
+		echo "<th style=\"width: 10%\">" . "Status" . "</th>";
+		echo ("</tr></thead>");
+		
 		foreach ($items AS $item) {
-			$uniqueItem  = "<li>";
-			$uniqueItem .= ("<a href=\"node.php?m=inventory/views/item.php&amp;itemUID=");
-			$uniqueItem .= ($item->uid . "\">");
-			$uniqueItem .= $item->serial . " - " . $item->manufacturer . " " . $item->model;
-			$uniqueItem .= ("</a>");
-			$uniqueItem .= "</li>";
+			$uniqueItem  = "<tr>";
+			$uniqueItem .= "<td>" . $item->manufacturer . "</td>";
+			$uniqueItem .= "<td>" . $item->model . "</td>";
+			$uniqueItem .= "<td>" . "<a href=\"node.php?m=inventory/views/item.php&amp;itemUID=" . $item->uid . "\">" . $item->serial . "</a></td>";
+			$uniqueItem .= "<td>" . dateDisplay(strtotime($item->purchase_date), true) . "</td>";
+			echo strtotime($item->last_modified);
+			if (strtotime($item->last_modified) >= strtotime("-1 year")) {
+				$uniqueItem .= "<td>" . "<span class=\"label label-success\">Up-to-date</span>" . "</td>";
+			} elseif (strtotime($item->last_modified) >= strtotime("-3 years")) {
+				$uniqueItem .= "<td>" . "<span class=\"label label-warning\">Needs Updating</span>" . "</td>";
+			} else {
+				$uniqueItem .= "<td>" . "<span class=\"label label-important\">Missing</span>" . "</td>";
+			}
+			$uniqueItem .= "</tr>";
 	
 			echo $uniqueItem;
 		}
+		echo ("</table>");
+		
 	}
-?>
+	
+	?>
+</div>
+
+		
+		
+<div id="main">
+	<h2></h2>
+	
 
 	<form target="_self" method="POST" name="add_job" id="add_job">
 	<h2>Add New Item</h2>
@@ -78,7 +109,7 @@ $(function() {
 	<select name = "classroom_uid">
 		<?php
 			foreach ($classrooms AS $uniqueClassroom) {
-				echo optionDropdown($uniqueClassroom->uid, $uniqueClassroom->name, $classroom->uid) ;
+				echo optionDropdown($uniqueClassroom->uid, $uniqueClassroom->official_name, $classroom->uid) ;
 			}
 		?>
 	</select>

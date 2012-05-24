@@ -42,7 +42,7 @@ class User extends DatabaseObject {
 		$usersSQL .= "AND active = TRUE ";
 		$usersSQL .= "ORDER BY access ASC, firstname ASC ";
 		$usersSQL .= "LIMIT 10";
-				
+		
 		return self::find_by_sql($usersSQL);
 	}
 	
