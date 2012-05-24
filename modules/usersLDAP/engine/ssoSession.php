@@ -42,7 +42,6 @@ class ldapSession {
 		}
 		
 		return $_SESSION[SITE_UNIQUE_KEY]['cUser']['logonStatus'];
-		return "1";
 	}
 	
 	function is_in_group($groupName = NULL) {
