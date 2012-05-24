@@ -48,7 +48,7 @@ $classrooms = Classroom::find_all_by_school($currentUser->school_uid);
 		$uniqueItem  = "<tr>";
 		$uniqueItem .= "<td>" . "<a href=\"node.php?m=inventory/views/room.php&amp;roomUID=" . $classroom->uid . "\">" . $classroom->roomName() . "</a></td>";
 		$uniqueItem .= "<td>" . $classroom->teacher . "</td>";
-		$uniqueItem .= "<td>" . $classroom->averageContentsModifiedDate() . "</td>";
+		$uniqueItem .= "<td>" . $classroom->notes . "</td>";
 		if (strtotime($classroom->averageContentsModifiedDate()) >= strtotime("-1 year")) {
 			$uniqueItem .= "<td>" . "<span class=\"label label-success\">Up-to-date</span>" . "</td>";
 		} elseif (strtotime($classroom->averageContentsModifiedDate()) >= strtotime("-3 years")) {
