@@ -17,11 +17,16 @@ if (isset($_POST['add_item'])) {
 	$item->manufacturer = $_POST['manufacturer'];
 	$item->model = $_POST['model'];
 	$item->serial = $_POST['serial'];
+	$item->value = $_POST['value'];
 	$item->notes = $_POST['notes'];
 	$item->purchase_date = $_POST['purchase_date'];
 	
 	// insert item to the database
-	$item->create();
+	if ($item->create()) {
+		$addItemResult = TRUE;
+	} else {
+		$addItemResult = FALSE;
+	}
 }
 
 
@@ -52,16 +57,28 @@ $(function() {
 <div class="row">
 <div class="span12">
 	<div class="page-header">
-		<h1><?php echo $classroom->roomName(); ?> <small>xx items
+		<h1><?php echo $classroom->roomName(); ?> <small>xx items</small>
+		<small class="pull-right">
+		<?php
+		$value = new Inventory();
+		$value->classroom_uid = $classroom->uid;
+		$value = $value->value_by_room();
+		echo moneyDisplay($value->value);
+		?>
 		</small></h1>
 	</div>
 	
 	<?php
-	
+	if (isset($_POST['add_item']) && $addItemResult == TRUE) {
+		echo "<div class=\"alert alert-success\"><strong>Success</strong> " . $_POST['type'] . " added to inventory</div>";
+	} elseif (isset($_POST['add_item']) && $addItemResult == FALSE) {
+		echo "<div class=\"alert\"><strong>Warning!</strong> Error adding item to inventory.</div>";
+		printArray($_POST);
+	}
 	foreach ($types AS $type) {
 		$items = Inventory::find_all_by_room($currentUser->school_uid, $classroom->uid, $type->type);
 	
-		echo ("<h3>" . count($items) . " " . $type->type . "s</h3>");
+		echo ("<h3>" . count($items) . " " . $type->type . "</h3>");
 		
 		echo ("<table class=\"table table-bordered table-striped\">");
 		echo ("<thead><tr>");
@@ -78,7 +95,7 @@ $(function() {
 			$uniqueItem .= "<td>" . $item->model . "</td>";
 			$uniqueItem .= "<td>" . "<a href=\"node.php?m=inventory/views/item.php&amp;itemUID=" . $item->uid . "\">" . $item->serial . "</a></td>";
 			$uniqueItem .= "<td>" . dateDisplay(strtotime($item->purchase_date), true) . "</td>";
-			echo strtotime($item->last_modified);
+			
 			if (strtotime($item->last_modified) >= strtotime("-1 year")) {
 				$uniqueItem .= "<td>" . "<span class=\"label label-success\">Up-to-date</span>" . "</td>";
 			} elseif (strtotime($item->last_modified) >= strtotime("-3 years")) {
@@ -96,52 +113,96 @@ $(function() {
 	
 	?>
 </div>
+</div>
 
-		
-		
-<div id="main">
-	<h2></h2>
-	
-
-	<form target="_self" method="POST" name="add_job" id="add_job">
-	<h2>Add New Item</h2>
-	<p>Classroom: <br />
-	<select name = "classroom_uid">
-		<?php
-			foreach ($classrooms AS $uniqueClassroom) {
-				echo optionDropdown($uniqueClassroom->uid, $uniqueClassroom->official_name, $classroom->uid) ;
-			}
+<div class="row">
+<div class="span12">
+	<form class="form-horizontal" target="_self" method="POST" name="add_job" id="add_job">
+	<fieldset>
+    <legend>Add New Item</legend>
+    <div class="control-group">
+    	<label class="control-label" for="classroom_uid">Classroom</label>
+    	<div class="controls">
+    		<select name="classroom_uid">
+    			<?php foreach($classrooms AS $uniqueClassroom) {
+	    			echo optionDropdown($uniqueClassroom->uid, $uniqueClassroom->roomName(), $classroom->uid);
+	    		} ?>
+	    	</select>
+    	</div>
+    </div>
+    <div class="control-group">
+    	<label class="control-label" for="type">Type</label>
+    	<div class="controls">
+    		<select name="type">
+    			<?php
+	    		foreach ($allTypes AS $type) {
+					echo optionDropdown($type->type, $type->type, "0") ;
+				}
+				echo optionDropdown("Other", "Other", "Other") ;
+				?>
+	    	</select>
+    	</div>
+    </div>
+    <div class="control-group">
+    	<label class="control-label" for="manufacturer">Serial</label>
+    	<div class="controls">
+    		<input type="text" class="input-xlarge" name="serial">
+    		<p class="help-block">If there are multiple serial numbers, enter them all here</p>
+    	</div>
+    </div>
+    <div class="control-group">
+    	<?php
+	    $manufacturers = Inventory::find_by_sql("SELECT manufacturer FROM inventory GROUP BY manufacturer ORDER BY manufacturer DESC");
+		foreach ($manufacturers AS $manufacturer) {
+			$manOutput[] = "\"" . $manufacturer->manufacturer . "\"";
+		}
+		$manOutput = array_unique($manOutput);
 		?>
-	</select>
-	</p>
-	<p>Type: <br />
-	<select name="type" id="type">
-		<?php
-			foreach ($allTypes AS $type) {
-				echo optionDropdown($type->type, $type->type, "0") ;
-			}
-			echo optionDropdown("Other", "Other", 99) ;
+    	<label class="control-label" for="manufacturer">Manufacturer</label>
+    	<div class="controls">
+    		<input type="text" class="input-xlarge" data-provide="typeahead" data-items="4" data-source='[<?php echo implode(",", $manOutput); ?>]' name="manufacturer">
+    	</div>
+    </div>
+    <div class="control-group">
+  		<?php
+	    $models = Inventory::find_by_sql("SELECT model FROM inventory GROUP BY model ORDER BY model DESC");
+		foreach ($models AS $model) {
+			$modOutput[] = "\"" . str_replace("\"", "", $model->model) . "\"";
+		}
+		$modOutput = array_unique($modOutput);
 		?>
-	</select>
-		<input type="text" name="typeOther" id="typeOther" />
-		</p>
-	<p>Manufacturer: <br />
-	<input type="text" name = "manufactuer" />
-	</p>
-	<p>Model: <br />
-	<input type="text" name = "model" />
-	</p>
-	<p>Serial: <br />
-	<input type="text" name = "serial" />
-	</p>
-	<p>Purchase Date: <br />
-	<input type="text" name = "purchase_date" value = "<?php echo (date('Y/m/d'));?>" />
-	</p>
-	<p>Notes: <br />
-	<textarea name = "notes" cols="80" rows="7"></textarea>
-	</p>
-	<input type="submit" />
-	<input type="hidden" name = "school_uid" value = "<?php echo ($classroom->school_uid); ?>" />
-	<input type="hidden" name = "add_item" />
+    	<label class="control-label" for="model">Model</label>
+    	<div class="controls">
+    		<input type="text" class="input-xlarge" data-provide="typeahead" data-items="4" data-source='[<?php echo implode(",", $modOutput); ?>]' name="model">
+    	</div>
+    </div>
+    <div class="control-group">
+    	<label class="control-label" for="value">Value</label>
+    	<div class="controls">
+    		<div class="input-prepend">
+                <span class="add-on"><?php echo CURRENCY_SIGN; ?></span><input class="span2" name="value" size="16" type="text">
+            </div>
+    	</div>
+    </div>            
+    <div class="control-group">
+    	<label class="control-label" for="notes">Notes</label>
+    	<div class="controls">
+	    	<textarea class="input-xlarge" name="notes" rows="3"></textarea>
+	    	
+    	</div>
+    </div>
+    <div class="control-group">
+    	<label class="control-label" for="purchase_date">Purchase Date</label>
+    	<div class="controls">
+    		<input type="text" class="input-xlarge" name="purchase_date" value="<?php echo (date('Y-m-d'));?>">
+    	</div>
+    </div>	
+	<div class="form-actions">
+       <button type="submit" class="btn btn-primary">Add Item</button>
+	    	<input type="hidden" name = "school_uid" value = "<?php echo ($classroom->school_uid); ?>" />
+	    	<input type="hidden" name = "add_item" />
+    </div>
+	</fieldset>
 	</form>
+</div>
 </div>

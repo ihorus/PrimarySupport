@@ -91,6 +91,14 @@ class Inventory extends DatabaseObject {
 		return self::find_by_sql($sql);
 	}
 	
+	public function value_by_room() {
+		$sql  = "SELECT SUM(value) AS value FROM " . self::$table_name . " ";
+		$sql .= "WHERE classroom_uid = " . $this->classroom_uid . " ";
+				
+		$result_array = self::find_by_sql($sql);
+		return !empty($result_array) ? array_shift($result_array) : false;
+	}
+	
 	public static function itemsPurchasedBeforeByType($date = NULL) {
 		$sql  = "SELECT type, COUNT(*) AS uid, SUM(value) AS notes FROM " . self::$table_name . " ";
 		$sql .= "WHERE purchase_date <= " . strtotime($date) . " ";
@@ -120,7 +128,11 @@ class Inventory extends DatabaseObject {
 		$sql .= $database->escape_value($this->purchase_date) . "')";
 		
 		// insert the record to the database
-		$database->query($sql);
+		if ($database->query($sql)) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	}
 	
 	public function update() {

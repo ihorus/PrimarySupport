@@ -125,6 +125,16 @@ class Classroom extends DatabaseObject {
 		
 		return $returnDate;	
 	}
+	
+	public function contents() {
+		global $database;
+		
+		$contents = new Inventory();
+		$contents->classroom_uid = $this->uid;
+		$contents = $contents->contents_by_roomUID();
+				
+		return $contents;	
+	}
 } // end class Classroom
 
 ?>

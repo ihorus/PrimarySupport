@@ -49,14 +49,18 @@ $classrooms = Classroom::find_all_by_school($currentUser->school_uid);
 		$uniqueItem .= "<td>" . "<a href=\"node.php?m=inventory/views/room.php&amp;roomUID=" . $classroom->uid . "\">" . $classroom->roomName() . "</a></td>";
 		$uniqueItem .= "<td>" . $classroom->teacher . "</td>";
 		$uniqueItem .= "<td>" . $classroom->notes . "</td>";
-		if (strtotime($classroom->averageContentsModifiedDate()) >= strtotime("-1 year")) {
-			$uniqueItem .= "<td>" . "<span class=\"label label-success\">Up-to-date</span>" . "</td>";
-		} elseif (strtotime($classroom->averageContentsModifiedDate()) >= strtotime("-3 years")) {
-			$uniqueItem .= "<td>" . "<span class=\"label label-warning\">Needs Updating</span>" . "</td>";
+		if (count($classroom->contents()) > 0) {
+			if (strtotime($classroom->averageContentsModifiedDate()) >= strtotime("-1 year")) {
+				$uniqueItem .= "<td>" . "<span class=\"label label-success\">Up-to-date</span>" . "</td>";
+			} elseif (strtotime($classroom->averageContentsModifiedDate()) >= strtotime("-3 years")) {
+				$uniqueItem .= "<td>" . "<span class=\"label label-warning\">Needs Updating</span>" . "</td>";
+			} else {
+				$uniqueItem .= "<td>" . "<span class=\"label label-important\">Missing</span>" . "</td>";
+			}
 		} else {
-			$uniqueItem .= "<td>" . "<span class=\"label label-important\">Missing</span>" . "</td>";
+			$uniqueItem .= "<td>" . "<span class=\"label\">Empty</span>" . "</td>";
 		}
-		$uniqueItem .= "</tr>";
+			$uniqueItem .= "</tr>";
 		echo $uniqueItem;
 	}
 	
