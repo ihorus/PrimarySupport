@@ -25,7 +25,6 @@ $inventoryTypes = Inventory::find_types();
 <script type="text/javascript">
 $(function() {
 	$("#touchUniqueItem").click(function() {
-		alert('test');
 		// validate and process form here
 				
 		// description
@@ -37,7 +36,11 @@ $(function() {
 		$.post(url,{
 			itemUID: itemUID
 		}, function(data){
-			
+			//$(this).css("btn-success");
+			//$("#touchUniqueItem").css({"background-color": "#FFBFBF"});
+			$("#touchUniqueItem").removeClass("btn-info");
+			$("#touchUniqueItem").addClass("btn-success disabled");
+			$('#touchUniqueItem').html('<i class="icon-hand-up icon-white"></i> Touched');
 		},'html');
 		
 		// stop the page refreshing, this is all handled in jQuery so we don't need a proper submit
