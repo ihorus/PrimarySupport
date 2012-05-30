@@ -8,7 +8,8 @@ Authors
 -------
 
 **Andrew Breakspear**
-+ http://www.wallingfordschool.com
++ http://www.longhanborough.com
++ http://twitter.com/#!/doxykins
 
 **Peter Rushton**
 + http://www.wallingfordschool.com
@@ -25,11 +26,11 @@ External Code/Images
 + http://twitter.github.com/bootstrap
 
 **jQuery**
-+ Fast and concise JavaScript Library.
++ A fast and concise JavaScript Library.
 + http://www.jquery.com
 
 **FPDF**
-+ A PHP class which allows to generate PDF file
++ A PHP class which allows you to generate PDF files.
 + http://www.fpdf.org
 
 
