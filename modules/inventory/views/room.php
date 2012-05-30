@@ -38,6 +38,37 @@ $types = Inventory::find_by_sql("SELECT * FROM inventory WHERE school_uid = {$cu
 $allTypes = Inventory::find_types();
 
 ?>
+<script type="text/javascript">
+$(function() {
+	$("#touchMultipleItems").click(function() {
+		// validate and process form here
+		var itemUID = new Array();
+		
+		// description
+		$("input:checkbox[name=touchUID]:checked").each(function() {
+			itemUID.push($(this).val());
+		});
+		
+		// url we're going to send the data to
+		var url = "modules/inventory/actions/touchItem.php";
+		
+		$.post(url,{
+			itemUID: itemUID
+		}, function(data){
+			//$(this).css("btn-success");
+			//$("#touchUniqueItem").css({"background-color": "#FFBFBF"});
+			$("#touchMultipleItems").removeClass("btn-info");
+			$("#touchMultipleItems").addClass("btn-success disabled");
+			$('#touchMultipleItems').html('<i class="icon-hand-up icon-white"></i> Touched');
+		},'html');
+		
+		// stop the page refreshing, this is all handled in jQuery so we don't need a proper submit
+	return false;
+
+	});
+	
+});
+</script>
 <script>
 
 $(function() {
@@ -56,8 +87,12 @@ $(function() {
 
 <div class="row">
 <div class="span12">
+	<ul class="breadcrumb">
+		<li><a href="node.php?m=inventory/views/index.php">Inventory</a> <span class="divider">/</span></li>
+		<li class="active"><?php echo $classroom->roomName(); ?></li>
+	</ul>
 	<div class="page-header">
-		<h1><?php echo $classroom->roomName(); ?> <small>xx items</small>
+		<h1><?php echo $classroom->roomName(); ?> <small><?php echo count($classroom->contents()); ?> items</small>
 		<small class="pull-right">
 		<?php
 		$value = new Inventory();
@@ -96,12 +131,14 @@ $(function() {
 			$uniqueItem .= "<td>" . "<a href=\"node.php?m=inventory/views/item.php&amp;itemUID=" . $item->uid . "\">" . $item->serial . "</a></td>";
 			$uniqueItem .= "<td>" . dateDisplay(strtotime($item->purchase_date), true) . "</td>";
 			
+			$checkbox = "<input type=\"checkbox\" class=\"inline\" name=\"touchUID\" value=\"" . $item->uid . "\">";
+			
 			if (strtotime($item->last_modified) >= strtotime("-1 year")) {
-				$uniqueItem .= "<td>" . "<span class=\"label label-success\">Up-to-date</span>" . "</td>";
+				$uniqueItem .= "<td>" . "<span class=\"label label-success\">Up-to-date " . $checkbox . "</span>" . "</td>";
 			} elseif (strtotime($item->last_modified) >= strtotime("-3 years")) {
-				$uniqueItem .= "<td>" . "<span class=\"label label-warning\">Needs Updating</span>" . "</td>";
+				$uniqueItem .= "<td>" . "<span class=\"label label-warning\">Needs Updating " . $checkbox . "</span>" . "</td>";
 			} else {
-				$uniqueItem .= "<td>" . "<span class=\"label label-important\">Missing</span>" . "</td>";
+				$uniqueItem .= "<td>" . "<span class=\"label label-important\">Missing " . $checkbox . "</span>" . "</td>";
 			}
 			$uniqueItem .= "</tr>";
 	
@@ -112,6 +149,7 @@ $(function() {
 	}
 	
 	?>
+	<a class="btn btn-info pull-right" id="touchMultipleItems" href=""><i class="icon-hand-up icon-white"></i> Touch Selected Items</a>
 </div>
 </div>
 

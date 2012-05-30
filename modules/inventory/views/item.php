@@ -53,10 +53,15 @@ $(function() {
 
 <div class="row">
 <div class="span12">
+	<ul class="breadcrumb">
+		<li><a href="node.php?m=inventory/views/index.php">Inventory</a> <span class="divider">/</span></li>
+		<li><a href="node.php?m=inventory/views/room.php&roomUID=<?php echo $room->uid; ?>"><?php echo $room->roomName(); ?></a> <span class="divider">/</span></li>
+		<li class="active"><?php echo $item->type; ?></li>
+	</ul>
+	
 	<div class="page-header">
 		<h1><?php echo $item->serial; ?> <small> <?php echo $room->roomName() . ": " . $item->manufacturer . " " . $item->model; ?></small></h1>
 	</div>
-	<a class="btn btn-large btn-info pull-right" id="touchUniqueItem" href=""><i class="icon-hand-up icon-white"></i> Touch This Item</a>
 	<form class="form-horizontal" target="_self" method="POST" name="edit_item" id="edit_item">
 	<fieldset>
     <legend>Edit Inventory Item</legend>
@@ -124,7 +129,8 @@ $(function() {
     	</div>
     </div>
     <div class="form-actions">
-       <button type="submit" class="btn btn-primary">Save changes</button>
+       <button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Save changes</button>
+       <a class="btn btn-info" id="touchUniqueItem" href=""><i class="icon-hand-up icon-white"></i> Touch This Item</a>
 	    	<input type="hidden" name="update_item" />
 	    	<input type="hidden" id="uid" name="uid" value="<?php echo ($item->uid); ?>" />
     </div>
