@@ -164,6 +164,21 @@ class Inventory extends DatabaseObject {
 		// update the record in the database
 		$database->query($sql);
 	}
+	
+	public function findByString($searchString = NULL) {
+		global $database;
+		
+		// find jobs with the right search term
+		$sql  = "SELECT * FROM " . self::$table_name . " ";
+		$sql .= "WHERE uid LIKE '%" . $database->escape_value($searchString) . "%' ";
+		$sql .= "OR type LIKE '%" . $database->escape_value($searchString) . "%' ";
+		$sql .= "OR manufacturer LIKE '%" . $database->escape_value($searchString) . "%' ";
+		$sql .= "OR model LIKE '%" . $database->escape_value($searchString) . "%' ";
+		$sql .= "OR serial LIKE '%" . $database->escape_value($searchString) . "%' ";
+		$sql .= "OR notes LIKE '%" . $database->escape_value($searchString) . "%' ";
+				
+		return self::find_by_sql($sql);
+	}
 } // end class Inventory
 
 ?>

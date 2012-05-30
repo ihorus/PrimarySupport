@@ -132,16 +132,27 @@ class Search extends DatabaseObject {
 		return $uniqueArray;
 	}
 	
-	public function find_all_notes() {	
+	public function find_all_notes($searchString = NULL) {	
 		$jobs_sql  = "SELECT * FROM " . self::$notes_table_name . " ";
-		$jobs_sql .= "WHERE description LIKE '%" . $this->searchString . "%' ";
-		$jobs_sql .= "OR title LIKE '%" . $this->searchString . "%' ";
+		$jobs_sql .= "WHERE description LIKE '%" . $searchString . "%' ";
+		$jobs_sql .= "OR title LIKE '%" . $searchString . "%' ";
 		$jobs_sql .= "ORDER BY uid DESC";
 		
 		$results = self::find_by_sql($jobs_sql);
 				
 		return $results;
 	}
-
+	
+	public function findJobsBySearch($searchString = NULL) {
+		global $database;
+		
+		// find jobs with the right search term
+		$sql  = "SELECT * FROM " . self::$jobs_table_name . " ";
+		$sql .= "WHERE description LIKE '%" . $database->escape_value($searchString) . "%' ";
+		$sql .= "AND (type = 'Info' OR type = 'Job') ";
+		$sql .= "LIMIT 500";
+		
+		return self::find_by_sql($sql);
+	}
 }
 ?>
