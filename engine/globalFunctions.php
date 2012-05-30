@@ -152,8 +152,14 @@ function sendMail($recipient, $subject, $message) {
 	if (isset($recipient)) {
 		mail($recipient, $subject, $message, $headers);
 	} else {
-		echo("<p>Message delivery failed...</p>");
-		echo $recipient . $subject . $message;
+		$output  = "<div class=\"alert alert-error alert-block\">";
+		$output .= "<a class=\"close\" data-dismiss=\"alert\" href=\"#\">x</a>";
+		$output .= "<strong>Warning! </strong>";
+		$output .= "Message delivery failed (no recipient address specified)<br />";
+		$output .= "</div>";
+		
+		echo $output;
+		
 		return FALSE;
 	}
 }
