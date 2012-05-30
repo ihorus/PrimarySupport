@@ -20,11 +20,17 @@ Authors
 External Code/Images
 --------------------
 
-* 'Keep It Simple' CSS/HTML template courtesy of Styleshout.com
-** http://www.styleshout.com
-* 'Add/Edit/Delete' icons courtesy of FamFamFam
-** Mark James, Birmingham UK
-** http://www.famfamfam.com/lab/icons/silk/
+**Twitter Bootstrap**
++ Simple and flexible HTML, CSS, and Javascript for popular user interface components and interactions.
++ http://twitter.github.com/bootstrap
+
+**jQuery**
++ Fast and concise JavaScript Library.
++ http://www.jquery.com
+
+**FPDF**
++ A PHP class which allows to generate PDF file
++ http://www.fpdf.org
 
 
 Copyright and license
