@@ -224,110 +224,153 @@ $(document).ready(function() {
 });
 </script>
 		
-<div class="grid_9 alpha omega">
+<div class="row-fluid">
+	<div class="span12">
 	<?php
-	if (isset($_POST['user_update'])) {
-		echo ("<h2>Update Complete</h2>");
-	}
-
-		if ($user->uid == $_SESSION[SITE_UNIQUE_KEY]['cUser']['uid']) {
-			echo ("<h2>My Profile Information</h2>");
-		} else {
-			echo ("<h2>Edit " . $user->firstname . "'s <i>(" . $user->username . ")</i> Profile Information</h2>");
+		if (isset($_POST['user_update'])) {
+			echo ("<h2>Update Complete</h2>");
 		}
+		
+		echo "<div class=\"page-header\">";
+		
+		if ($user->uid == $_SESSION[SITE_UNIQUE_KEY]['cUser']['uid']) {
+			echo "<h1>" . (ucfirst(strtolower($user->firstname)) . " " . ucfirst(strtolower(($user->lastname)))) . " <small> my profile information</small></h1>";
+		} else {
+			echo "<h1>" . (ucfirst(strtolower($user->firstname)) . " " . ucfirst(strtolower(($user->lastname)))) . " <small> profile information</small></h1>";
+		}
+		echo "</div>";
 	?>
-	
-	<form target="_self" method="POST" name="add_visit" id="add_visit">
-	<div id="profileEditForm">
-	<p>Username: <br />
-	<?php
-	if (!isAdmin()) {
-		$disabled = "DISABLED";
-	}
-
-	echo "<input type=\"text\" id=\"username\" " . $disabled . " value = \"" . $user->username . "\" />";
-	?>
-	</p>
-	<p>Given Name: <br />
-	<input type="text" id="firstname" value = "<?php echo $user->firstname; ?>" />
-	</p>
-	<p>Family Name: <br />
-	<input type="text" id="lastname" value = "<?php echo $user->lastname; ?>" />
-	</p>
-	<p>School(s): <br />
-	<?php
-	if (!isAdmin()) {
-		$disabled = "DISABLED";
-	}
-	echo ("<select " . $disabled ." id=\"school_uid\" multiple size=5>");
-	
-	$schoolUIDS = explode(",", $user->school_uid);
-	foreach($schools AS $school) {
-		echo optionDropdown($school->uid, $school->name, $schoolUIDS);
-	}
-	echo "</select>";
-	?>
-	
-	</p>
-	<p>E-Mail Address: <br />
-	<input type="text" id="email" value = "<?php echo $user->email; ?>" />
-	</p>
-	<p>Access Level: <br />
-	<?php
-	if (!isAdmin()) {
-		$disabled = "DISABLED READONLY";
-	}
-	$accessArray = array(1 => "Administrator", 2 => "Technician", 3 => "User");
-	//printArray($accessArray);
-	
-	echo ("<select " . $disabled ." id=\"access\">");
-	foreach($accessArray AS $access => $value) {
-		echo optionDropdown($access, $value, $user->access);
-	}
-	echo "</select>";
-	?>
-	</p>
-	<p>Type: <br />
-	<?php
-	if (!isAdmin()) {
-		$disabled = "DISABLED READONLY";
-	}
-	$typeArray = array("Administrator", "Technician", "School");
-	//printArray($accessArray);
-	
-	echo ("<select " . $disabled ." id=\"type\">");
-	foreach($typeArray AS $type) {
-		echo optionDropdown($type, $type, $user->type);
-	}
-	echo "</select>";
-	?>
-	</p>
-	<p>Active: <br />
-	<?php
-	if (!isAdmin()) {
-		$disabled = "DISABLED";
-	}
-	if ($user->active == 1) {
-		$activeState = "1";
-		$checkedState = "checked=\"checked\"";
-	}
-	echo ("<input type=\"checkbox\" id=\"active\" value=\"" . $activeState . "\" " . $disabled . " " . $checkedState . " />");
-	?>
-	</p>
-	<input type="submit" class="updateDetailsButton" id="updateDetailsButton" value="Update Details"/>
-	
-	<p><a href="#" id="showHideClick">Click Here To Reset Your Password:</a></p>
-	<div id="showHide">
-	<input type="password" id="password" /><br />
-	<input type="password" id="password2" /><br />
-	<input type="submit" class="updatePasswordButton" id="updatePasswordButton" value="Update Password"/>
 	</div>
-	<input type="hidden" id="userUID" value="<?php echo $user->uid; ?>" />
-	</div>
-	</form>
 </div>
 
-<div class="grid_9 alpha omega">
+<div class="row-fluid">
+	<div class="span6">
+	<form class="form-horizontal" target="_self" method="POST" name="add_visit" id="add_visit">
+	<fieldset>
+		<legend>Profile Details</legend>
+		<div class="control-group">
+			<label class="control-label" for="username">Username</label>
+			<div class="controls">
+				<input class="input-xlarge disabled" id="username" type="text" " value="<?php echo $user->username; ?>" disabled>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="firstname">Given Name</label>
+			<div class="controls">
+				<input class="input-xlarge" id="firstname" type="text" " value="<?php echo $user->firstname; ?>">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="lastname">Family Name</label>
+			<div class="controls">
+				<input class="input-xlarge" id="firstname" type="text" " value="<?php echo $user->lastname; ?>">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="school_uid">School(s)</label>
+			<div class="controls">
+				<?php
+				if (!isAdmin()) {
+					$disabled = "DISABLED";
+				}
+				echo ("<select " . $disabled ." id=\"school_uid\" multiple size=5>");
+				
+				$schoolUIDS = explode(",", $user->school_uid);
+				foreach($schools AS $school) {
+					echo optionDropdown($school->uid, $school->name, $schoolUIDS);
+				}
+				echo "</select>";
+				?>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="email">E-Mail Address</label>
+			<div class="controls">
+				<input class="input-xlarge" id="email" type="text" " value="<?php echo $user->email; ?>">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="access">Access Level</label>
+			<div class="controls">
+				<?php
+				if (!isAdmin()) {
+					$disabled = "DISABLED READONLY";
+				}
+				$accessArray = array(1 => "Administrator", 2 => "Technician", 3 => "User");
+				//printArray($accessArray);
+				
+				echo ("<select " . $disabled ." id=\"access\">");
+				foreach($accessArray AS $access => $value) {
+					echo optionDropdown($access, $value, $user->access);
+				}
+				echo "</select>";
+				?>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="type">Type</label>
+			<div class="controls">
+				<?php
+				if (!isAdmin()) {
+					$disabled = "DISABLED READONLY";
+				}
+				$typeArray = array("Administrator", "Technician", "School");
+				//printArray($accessArray);
+				
+				echo ("<select " . $disabled ." id=\"type\">");
+				foreach($typeArray AS $type) {
+					echo optionDropdown($type, $type, $user->type);
+				}
+				echo "</select>";
+				?>
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="active">Active</label>
+			<div class="controls">
+				<?php
+				if (!isAdmin()) {
+					$disabled = "DISABLED";
+				}
+				if ($user->active == 1) {
+					$activeState = "1";
+					$checkedState = "checked=\"checked\"";
+				}
+				echo ("<input class=\"input-xlarge\" type=\"checkbox\" id=\"active\" value=\"" . $activeState . "\" " . $disabled . " " . $checkedState . " />");
+				?>
+			</div>
+		</div>
+		<div class="form-actions">
+			<button type="submit" class="btn btn-primary"><i class="icon-ok icon-white"></i> Save changes</button>
+			<input type="submit" class="updateDetailsButton" id="updateDetailsButton" value="Update Details"/>
+		</div>
+	</fieldset>
+	</form>
+	</div>
+	<div class="span6">
+		<form class="form-horizontal" target="_self" method="POST" name="add_visit" id="add_visit">
+		<fieldset>
+			<legend>Password Reset</legend>
+			<div class="control-group">
+				<label class="control-label" for="password">Password</label>
+				<div class="controls">
+					<input class="input-xlarge" id="password" type="password">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="password2">Confirm</label>
+				<div class="controls">
+					<input class="input-xlarge" id="password2" type="password">
+				</div>
+			</div>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-danger" id="updateDetailsButton"><i class="icon-lock icon-white"></i> Reset Password</button>
+				<input type="hidden" id="userUID" value="<?php echo $user->uid; ?>" />
+			</div>
+		</fieldset>
+		</form>
+	</div>
+	
 	<?php
 		if ($user->uid == $_SESSION[SITE_UNIQUE_KEY]['cUser']['uid']) {
 			echo ("<h2>My Settings</h2>");
@@ -388,5 +431,4 @@ $(document).ready(function() {
 		echo "</form>";
 	
 	?>
-	
 </div>

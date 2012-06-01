@@ -53,7 +53,14 @@ foreach ($schoolUIDS AS $schoolUID) {
 		
 		<div class="tab-content">
 			<div class="tab-pane active" id="info">
-				<p><?php echo ($user->gravatarURL(true, "128")); ?><br />
+				<ul class="thumbnails">
+					<li class="span2">
+					<a href="#" class="thumbnail">
+					<img src="http://www.gravatar.com/avatar.php?gravatar_id=<?php echo md5(strtolower($user->email)); ?>&amp;s=200" alt=""></a>
+					</li>
+				</ul>
+				
+				<p>
 				<?php echo ("Username: " . $user->username . " <i>(uid: " . $user->uid . ")</i>"); ?><br />
 				<?php echo ("Password Hash: " . $user->password); ?><br />
 				<?php echo ("First Name: " . $user->firstname); ?><br />

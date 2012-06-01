@@ -86,11 +86,12 @@ class AvailableSettings extends DatabaseObject {
 	
 	public function allAvailableSettings() {
 		// only show settings that are available to this security level
-		$securityLevel = $_SESSION[SITE_UNIQUE_KEY]['cUser']['access'];
+		//$securityLevel = $_SESSION[SITE_UNIQUE_KEY]['cUser']['access'];
+		$securityLevel = 3;
 
 		$sql  = "SELECT * FROM availableSettings ";		
 		$sql .= "WHERE settingSecurity >= "	. $securityLevel;
-		
+				
 		$result_array = self::find_by_sql($sql);
 		
 		return $result_array;
