@@ -16,6 +16,7 @@ class User extends DatabaseObject {
 	public $type;
 	public $active;
 	public $salutation;
+	public $auth_type;
 	
 	
 	public static function find_all() {
@@ -186,7 +187,7 @@ class User extends DatabaseObject {
 		global $database;
 		
 		$sql  = "INSERT INTO " . self::$table_name . " (";
-		$sql .= "username, password, firstname, lastname, school_uid, email, access, type, active, salutation";
+		$sql .= "username, password, firstname, lastname, school_uid, email, access, type, active, auth_type, salutation";
 		$sql .= ") VALUES ('";
 		$sql .= $database->escape_value($this->username) . "', '";
 		$sql .= $database->escape_value($this->password) . "', '";
@@ -197,6 +198,7 @@ class User extends DatabaseObject {
 		$sql .= $database->escape_value($this->access) . "', '";
 		$sql .= $database->escape_value($this->type) . "', '";
 		$sql .= $database->escape_value($this->active) . "', '";
+		$sql .= $database->escape_value($this->auth_type) . "', '";
 		$sql .= $database->escape_value($this->salutation) . "')";
 		
 		if ($database->query($sql)) {
