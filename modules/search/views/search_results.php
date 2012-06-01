@@ -14,24 +14,28 @@ if (isTechnician()) {
 	$notesResults = $results->find_all_notes($_POST['quickSearchTerm']);
 	$inventoryResults = Inventory::findByString($_POST['quickSearchTerm']);
 	
+	// reset counters
+	$activeJobsCount = 0;
+	$closedJobsCount = 0;
+	
 	foreach ($jobResults AS $result) {
 		if ($result->type == "Job") {
 			$job = Support::find_by_uid($result->uid);
 			if ($job->active == "1") {
 				$activeJobsOutput .= $job->displayJob();
-				$activeJobsCount = $activeJobsCount + 1;
+				$activeJobsCount ++;
 			} else {
 				$closedJobsOutput .= $job->displayJob();
-				$closedJobsCount = $closedJobsCount + 1;
+				$closedJobsCount ++;
 			}
 		} elseif ($result->type == "Response") {
 			$job = Support::find_by_uid($result->spawn);
 			if ($job->active == "1") {
 				$activeJobsOutput .= $job->displayJob();
-				$activeJobsCount = $activeJobsCount + 1;
+				$activeJobsCount ++;
 			} else {
 				$closedJobsOutput .= $job->displayJob();
-				$closedJobsCount = $closedJobsCount + 1;
+				$closedJobsCount ++;
 			}
 		}
 	}
