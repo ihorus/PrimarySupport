@@ -33,7 +33,8 @@ function makeBar($type = "info", $content = NULL) {
 			
 			if (file_exists($file1)) {
 				echo makeBar("success", "config.php located");
-				include_once($file1);
+				require_once($file1);
+				require_once("engine/initialise.php");
 			} else {
 				echo makeBar("error", "Can't find config.php (I tried, honestly!) at " . $_SERVER['DOCUMENT_ROOT'] . "/engine");
 			}
@@ -104,6 +105,24 @@ function makeBar($type = "info", $content = NULL) {
 				$formOutput .= "</form>";
 														
 				echo makeBar("error", "Tables not setup in database yet." . $formOutput);
+			}
+			
+			// check for ldap
+			
+			if ($ldapSession->ldapBind()) {
+				echo makeBar("success", "Successfully connected to LDAP Server: " . LDAP_LOCATION);
+			} else {
+				echo makeBar("error", "Can't bind to LDAP Server: " .LDAP_LOCATION);
+			}
+			
+			exec(SITE_LOCATION . "modules/usersLDAP/actions/syncUsersWithLDAP.php");
+			$users = User::find_all();
+			$adminUsers = User::find_all_techs();
+			
+			if (count($users) > 0) {
+				echo makeBar("success", count($users) . " users currently exist in the local Database (" . count($adminUsers) . " technicians)");
+			} else {
+				echo makeBar("success", "Warning - unable to import users from LDAP Server: " . LDAP_LOCATION);
 			}
 			?>
 			

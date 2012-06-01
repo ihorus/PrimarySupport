@@ -80,7 +80,11 @@ class ldapSession {
 		$usernameFull = $this->username . $this->ldapDomain;
 		
 		// Bind to the AD as the username/password combo specified in the form
-		$bd = ldap_bind($this->ad, $this->username . $this->ldapDomain, $this->password);
+		if (ldap_bind($this->ad, $this->username . $this->ldapDomain, $this->password)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	function ldapAdminBind() {

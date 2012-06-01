@@ -1,5 +1,5 @@
 <?php
-require_once("../../../engine/initialise.php");
+require_once(SITE_LOCATION . "/engine/initialise.php");
 
 global $ldapSession;
 
