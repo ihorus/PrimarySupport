@@ -102,17 +102,8 @@ class MySQLDatabase {
 		
 		$sql = file_get_contents('engine/tableInstaller.sql');
 		
-		//$sql .= "CREATE TABLE `test` (";
-		//$sql .= "`uid` int(10) unsigned NOT NULL AUTO_INCREMENT,";
-		//$sql .= "`school_uid` tinyint(3) unsigned NOT NULL DEFAULT '0',";
-		//$sql .= "`name` varchar(45) NOT NULL DEFAULT '',";
-		//$sql .= "`teacher` varchar(45) DEFAULT NULL,";
-		//$sql .= "`notes` text,";
-		//$sql .= "PRIMARY KEY (`uid`)";
-		//$sql .= ") ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=latin1;";
-		//$sql .= ");";
-				
 		if ($this->query($sql)) {
+			$this->close_connection();
 			return TRUE;
 		} else {
 			return FALSE;
