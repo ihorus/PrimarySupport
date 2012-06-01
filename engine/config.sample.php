@@ -19,6 +19,12 @@ define ("SITE_SLOGAN", "The best site ever");
 define ("SITE_ADMIN_NAME", "Some Person");
 define ("SITE_ADMIN_EMAIL", "someone@somewhere.com");
 
+// LDAP Constants
+define ("LDAP_LOCATION", "{{LDAP_SERVER}}"); // Active Directory location (e.g. '192.168.0.1')
+define ("LDAP_DOMAIN", "@domain.local"); // Domain name suffix (e.g. '@domain.local')
+define ("LDAP_USERNAME", "{{LDAP_USERNAME}}"); // User able to search the AD (e.g. 'username')
+define ("LDAP_PASSWORD", "{{LDAP_PASSWORD}}"); // Password for ldapSearchUser
+
 define ("INVOICE_PAYABLE", "COUNTY COUNCIL");
 define ("INVOICE_REMITTANCENAME", "YOUR BUSINESS NAME");
 
