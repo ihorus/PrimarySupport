@@ -99,3 +99,12 @@
   border-top-left-radius: 6px;
   border-top-right-radius: 6px;
 }
+
+
+[class*=" icon-"] {
+  background-image: url("../images/glyphicons-halflings.png");
+}
+
+.icon-white {
+  background-image: url("../images/glyphicons-halflings-white.png");
+}
