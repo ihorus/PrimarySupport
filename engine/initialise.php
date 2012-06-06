@@ -11,6 +11,8 @@ if (file_exists($configFile)) {
 	echo ("WARNING - NO CONFIG.PHP FILE FOUND!");
 	echo ("<br />");
 	echo ("Search Location: '" . $configFile . "' and '" . $configFile2 . "'");
+	echo ("<br />");
+	echo ("Have you run /install.php yet?");
 	exit;
 }
 	
